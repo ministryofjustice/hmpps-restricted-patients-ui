@@ -1,8 +1,8 @@
 {
-  "name": "hmpps-restricted-patients",
+  "name": "hmpps-restricted-patients-ui",
   "version": "0.0.1",
   "description": "Hmpps Restricted Patients",
-  "repository": "git@github.com:ministryofjustice/hmpps-restricted-patients.git",
+  "repository": "git@github.com:ministryofjustice/hmpps-restricted-patients-ui.git",
   "license": "MIT",
   "scripts": {
     "prepare": "husky",
