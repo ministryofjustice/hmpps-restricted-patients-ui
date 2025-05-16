@@ -1,11 +1,11 @@
 generic-service:
-  nameOverride: hmpps-restricted-patients
+  nameOverride: hmpps-restricted-patients-ui
   productId: DPS066
 
   replicaCount: 4
 
   image:
-    repository: quay.io/hmpps/hmpps-restricted-patients
+    repository: ghcr.io/ministryofjustice/hmpps-restricted-patients-ui
     tag: app_version # override at deployment time
     port: 3000
 
@@ -30,13 +30,15 @@ generic-service:
     TOKEN_VERIFICATION_ENABLED: "true"
 
   namespace_secrets:
-    application-insights:
+    hmpps-restricted-patients-ui-application-insights:
       APPLICATIONINSIGHTS_CONNECTION_STRING: "APPLICATIONINSIGHTS_CONNECTION_STRING"
-    hmpps-restricted-patients:
-      AUTH_CODE_CLIENT_ID: 'API_CLIENT_ID'
-      AUTH_CODE_CLIENT_SECRET: 'API_CLIENT_SECRET'
-      CLIENT_CREDS_CLIENT_ID: 'SYSTEM_CLIENT_ID'
-      CLIENT_CREDS_CLIENT_SECRET: 'SYSTEM_CLIENT_SECRET'
+    hmpps-restricted-patients-ui-auth-code:
+      AUTH_CODE_CLIENT_ID: 'AUTH_CODE_CLIENT_ID'
+      AUTH_CODE_CLIENT_SECRET: 'AUTH_CODE_CLIENT_SECRET'
+    hmpps-restricted-patients-ui-client-creds:
+      CLIENT_CREDS_CLIENT_ID: 'CLIENT_CREDS_CLIENT_ID'
+      CLIENT_CREDS_CLIENT_SECRET: 'CLIENT_CREDS_CLIENT_SECRET'
+    hmpps-restricted-patients-ui-session-secret:
       SESSION_SECRET: 'SESSION_SECRET'
     elasticache-redis:
       REDIS_HOST: "primary_endpoint_address"
@@ -49,4 +51,4 @@ generic-service:
       - private_prisons
 
 generic-prometheus-alerts:
-  targetApplication: hmpps-restricted-patients
+  targetApplication: hmpps-restricted-patients-ui
