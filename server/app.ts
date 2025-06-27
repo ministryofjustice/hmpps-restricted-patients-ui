@@ -42,7 +42,7 @@ export default function createApp(services: Services): express.Application {
   app.use(setUpCsrf())
 
   app.use(
-    '*',
+    '*any',
     dpsComponents.getPageComponents({
       includeSharedData: true,
       dpsUrl: config.dpsUrl,

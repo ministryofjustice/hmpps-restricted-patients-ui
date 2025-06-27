@@ -1,5 +1,4 @@
-import express, { RequestHandler, Router } from 'express'
-import asyncMiddleware from '../../middleware/asyncMiddleware'
+import express, { Router } from 'express'
 // eslint-disable-next-line import/no-cycle
 import HelpRoutes from './help'
 
@@ -8,9 +7,7 @@ export default function helpRoutes(): Router {
 
   const helpPage = new HelpRoutes()
 
-  const get = (path: string, handler: RequestHandler) => router.get(path, asyncMiddleware(handler))
-
-  get('/', helpPage.view)
+  router.get('/', helpPage.view)
   return router
 }
 

@@ -34,7 +34,7 @@ export default class MovePrisonerConfirmationRoutes {
   submit = async (req: Request, res: Response): Promise<void> => {
     const prisonerNumber = req.query.prisonerNumber as string
     const hospitalId = req.query.hospitalId as string
-    const { currentAgencyId } = req.body
+    const { currentAgencyId } = req.body || {}
     const { user } = res.locals
 
     try {

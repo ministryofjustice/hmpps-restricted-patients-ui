@@ -46,7 +46,7 @@ export default abstract class HospitalSelectRoutes {
 
   submit = async (req: Request, res: Response): Promise<void> => {
     const prisonerNumber = req.query.prisonerNumber as string
-    const { hospital } = req.body
+    const { hospital } = req.body || {}
 
     const error = validateMovePrisonerForm({ hospital })
 

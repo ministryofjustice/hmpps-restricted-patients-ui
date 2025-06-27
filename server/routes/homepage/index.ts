@@ -1,5 +1,4 @@
-import express, { RequestHandler, Router } from 'express'
-import asyncMiddleware from '../../middleware/asyncMiddleware'
+import express, { Router } from 'express'
 
 import HomepageRoutes from './homepage'
 import UserService from '../../services/userService'
@@ -9,8 +8,6 @@ export default function homepageRoutes({ userService }: { userService: UserServi
 
   const homepage = new HomepageRoutes(userService)
 
-  const get = (path: string, handler: RequestHandler) => router.get(path, asyncMiddleware(handler))
-
-  get('/', homepage.view)
+  router.get('/', homepage.view)
   return router
 }

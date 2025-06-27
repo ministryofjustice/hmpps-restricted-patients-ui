@@ -1,5 +1,4 @@
-import express, { RequestHandler, Router } from 'express'
-import asyncMiddleware from '../../middleware/asyncMiddleware'
+import express, { Router } from 'express'
 
 import HospitalSelectRoutes from './hospitalSelect'
 import MovePrisonerService from '../../services/movePrisonerService'
@@ -23,9 +22,6 @@ export default function movePrisonerRoutes({
   const router = express.Router({ mergeParams: true })
   router.use(authorisationMiddleware(true, ['TRANSFER_RESTRICTED_PATIENT']))
 
-  const get = (path: string, handler: RequestHandler) => router.get(path, asyncMiddleware(handler))
-  const post = (path: string, handler: RequestHandler) => router.post(path, asyncMiddleware(handler))
-
   const prisonerSearch = new PrisonerSearchRoutes()
   const prisonerSelect = new PrisonerSelectRoutes(prisonerSearchService)
   const movePrisoner = new HospitalSelectRoutes(agencySearchService, prisonerSearchService)
@@ -36,19 +32,19 @@ export default function movePrisonerRoutes({
   )
   const movePrisonerCompleted = new MovePrisonerCompletedRoutes(prisonerSearchService, agencySearchService)
 
-  get('/search-for-prisoner', prisonerSearch.view)
-  post('/search-for-prisoner', prisonerSearch.submit)
+  router.get('/search-for-prisoner', prisonerSearch.view)
+  router.post('/search-for-prisoner', prisonerSearch.submit)
 
-  get('/select-prisoner', prisonerSelect.view)
-  post('/select-prisoner', prisonerSelect.submit)
+  router.get('/select-prisoner', prisonerSelect.view)
+  router.post('/select-prisoner', prisonerSelect.submit)
 
-  get('/select-hospital', movePrisoner.view)
-  post('/select-hospital', movePrisoner.submit)
+  router.get('/select-hospital', movePrisoner.view)
+  router.post('/select-hospital', movePrisoner.submit)
 
-  get('/confirm-move', movePrisonerConfirmation.view)
-  post('/confirm-move', movePrisonerConfirmation.submit)
+  router.get('/confirm-move', movePrisonerConfirmation.view)
+  router.post('/confirm-move', movePrisonerConfirmation.submit)
 
-  get('/prisoner-moved-to-hospital', movePrisonerCompleted.view)
+  router.get('/prisoner-moved-to-hospital', movePrisonerCompleted.view)
 
   return router
 }

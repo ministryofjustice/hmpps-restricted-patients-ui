@@ -1,5 +1,4 @@
-import express, { RequestHandler, Router } from 'express'
-import asyncMiddleware from '../../middleware/asyncMiddleware'
+import express, { Router } from 'express'
 
 import PrisonerSearchService from '../../services/prisonerSearchService'
 import ChangePrisonCompletedRoutes from './changePrisonCompleted'
@@ -26,9 +25,6 @@ export default function changeSupportingPrisonRoutes({
   const router = express.Router({ mergeParams: true })
   router.use(authorisationMiddleware(true, ['RESTRICTED_PATIENT_MIGRATION']))
 
-  const get = (path: string, handler: RequestHandler) => router.get(path, asyncMiddleware(handler))
-  const post = (path: string, handler: RequestHandler) => router.post(path, asyncMiddleware(handler))
-
   const patientSearch = new RestrictedPatientSearchRoutes()
   const patientSelect = new RestrictedPatientSelectRoutes(restrictedPatientSearchService)
   const prisonSelect = new PrisonSelectRoutes(agencySearchService, restrictedPatientSearchService)
@@ -39,19 +35,19 @@ export default function changeSupportingPrisonRoutes({
     agencySearchService,
   )
 
-  get('/search-for-patient', patientSearch.view)
-  post('/search-for-patient', patientSearch.submit)
+  router.get('/search-for-patient', patientSearch.view)
+  router.post('/search-for-patient', patientSearch.submit)
 
-  get('/select-patient', patientSelect.view)
-  post('/select-patient', patientSelect.submit)
+  router.get('/select-patient', patientSelect.view)
+  router.post('/select-patient', patientSelect.submit)
 
-  get('/select-prison', prisonSelect.view)
-  post('/select-prison', prisonSelect.submit)
+  router.get('/select-prison', prisonSelect.view)
+  router.post('/select-prison', prisonSelect.submit)
 
-  get('/', changePrisonConfirmation.view)
-  post('/', changePrisonConfirmation.submit)
+  router.get('/', changePrisonConfirmation.view)
+  router.post('/', changePrisonConfirmation.submit)
 
-  get('/prisoner-changed', changePrisonCompleted.view)
+  router.get('/prisoner-changed', changePrisonCompleted.view)
 
   return router
 }
