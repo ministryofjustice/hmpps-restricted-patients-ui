@@ -58,7 +58,7 @@ export default abstract class PrisonSelectRoutes {
 
   submit = async (req: Request, res: Response): Promise<void> => {
     const prisonerNumber = req.query.prisonerNumber as string
-    const { prison } = req.body
+    const { prison } = req.body || {}
 
     const error = validateMovePrisonerForm({ prison })
 

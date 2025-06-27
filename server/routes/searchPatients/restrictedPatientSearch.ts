@@ -16,7 +16,7 @@ export default abstract class RestrictedPatientSearchRoutes {
   view = async (req: Request, res: Response): Promise<void> => this.renderView(req, res)
 
   submit = async (req: Request, res: Response): Promise<void> => {
-    const { searchTerm } = req.body
+    const { searchTerm } = req.body || {}
 
     const error = validateForm({ searchTerm })
 

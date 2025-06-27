@@ -1,5 +1,4 @@
-import express, { RequestHandler, Router } from 'express'
-import asyncMiddleware from '../../middleware/asyncMiddleware'
+import express, { Router } from 'express'
 
 import RemoveRestrictedPatientConfirmationRoutes from './removeRestrictedPatientConfirmation'
 
@@ -28,19 +27,16 @@ export default function removePatientRoutes({
   const select = new RestrictedPatientSelectRoutes(restrictedPatientSearchService)
   const completed = new RemoveRestrictedPatientCompletedRoutes(prisonerSearchService)
 
-  const get = (path: string, handler: RequestHandler) => router.get(path, asyncMiddleware(handler))
-  const post = (path: string, handler: RequestHandler) => router.post(path, asyncMiddleware(handler))
+  router.get('/search-for-patient', search.view)
+  router.post('/search-for-patient', search.submit)
 
-  get('/search-for-patient', search.view)
-  post('/search-for-patient', search.submit)
+  router.get('/select-patient', select.view)
+  router.post('/select-patient', select.submit)
 
-  get('/select-patient', select.view)
-  post('/select-patient', select.submit)
+  router.get('/patient-removed', completed.view)
 
-  get('/patient-removed', completed.view)
-
-  get('/', confirmation.view)
-  post('/', confirmation.submit)
+  router.get('/', confirmation.view)
+  router.post('/', confirmation.submit)
 
   return router
 }

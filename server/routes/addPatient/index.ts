@@ -1,5 +1,4 @@
-import express, { RequestHandler, Router } from 'express'
-import asyncMiddleware from '../../middleware/asyncMiddleware'
+import express, { Router } from 'express'
 
 import PrisonerSearchService from '../../services/prisonerSearchService'
 import PrisonerSearchRoutes from './prisonerSearch'
@@ -23,9 +22,6 @@ export default function addPrisonerRoutes({
   const router = express.Router({ mergeParams: true })
   router.use(authorisationMiddleware(true, ['RESTRICTED_PATIENT_MIGRATION']))
 
-  const get = (path: string, handler: RequestHandler) => router.get(path, asyncMiddleware(handler))
-  const post = (path: string, handler: RequestHandler) => router.post(path, asyncMiddleware(handler))
-
   const prisonerSearch = new PrisonerSearchRoutes()
   const prisonerSelect = new PrisonerSelectRoutes(prisonerSearchService)
   const hospitalSelect = new HospitalSelectRoutes(agencySearchService, prisonerSearchService)
@@ -36,19 +32,19 @@ export default function addPrisonerRoutes({
     agencySearchService,
   )
 
-  get('/search-for-prisoner', prisonerSearch.view)
-  post('/search-for-prisoner', prisonerSearch.submit)
+  router.get('/search-for-prisoner', prisonerSearch.view)
+  router.post('/search-for-prisoner', prisonerSearch.submit)
 
-  get('/select-prisoner', prisonerSelect.view)
-  post('/select-prisoner', prisonerSelect.submit)
+  router.get('/select-prisoner', prisonerSelect.view)
+  router.post('/select-prisoner', prisonerSelect.submit)
 
-  get('/select-hospital', hospitalSelect.view)
-  post('/select-hospital', hospitalSelect.submit)
+  router.get('/select-hospital', hospitalSelect.view)
+  router.post('/select-hospital', hospitalSelect.submit)
 
-  get('/confirm-add', addPatientConfirmation.view)
-  post('/confirm-add', addPatientConfirmation.submit)
+  router.get('/confirm-add', addPatientConfirmation.view)
+  router.post('/confirm-add', addPatientConfirmation.submit)
 
-  get('/prisoner-added', addPatientCompleted.view)
+  router.get('/prisoner-added', addPatientCompleted.view)
 
   return router
 }

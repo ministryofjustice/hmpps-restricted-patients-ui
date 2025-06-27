@@ -33,6 +33,7 @@ export default function setUpWebSecurity(): Router {
           imgSrc,
           connectSrc: ["'self'"],
           formAction: ["'self'", config.dpsUrl],
+          ...(config.production ? {} : { upgradeInsecureRequests: null }),
         },
       },
     }),
