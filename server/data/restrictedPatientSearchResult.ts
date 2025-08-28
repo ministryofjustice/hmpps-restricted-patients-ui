@@ -6,14 +6,5 @@ export default class RestrictedPatientSearchResult extends PrisonerSearchResult 
   supportingPrisonId: string
 
   @Expose()
-  dischargedHospitalId: string
-
-  @Expose()
   dischargedHospitalDescription: string
-
-  @Expose()
-  dischargeDate: string
-
-  @Expose()
-  dischargeDetails: string
 }

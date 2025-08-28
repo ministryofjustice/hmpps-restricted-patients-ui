@@ -42,7 +42,6 @@ describe('prisonerSearchService', () => {
           ],
           firstName: 'JOHN',
           lastName: 'SMITH',
-          prisonName: 'HMP Moorland',
           prisonerNumber: 'A1234AA',
           cellLocation: '1-2-015',
         } as PrisonerSearchResult,
@@ -50,7 +49,6 @@ describe('prisonerSearchService', () => {
           alerts: [],
           firstName: 'STEVE',
           lastName: 'JONES',
-          prisonName: 'HMP Moorland',
           prisonerNumber: 'A1234AB',
           cellLocation: '1-2-016',
         } as PrisonerSearchResult,
@@ -64,7 +62,6 @@ describe('prisonerSearchService', () => {
           firstName: 'STEVE',
           formattedAlerts: [],
           lastName: 'JONES',
-          prisonName: 'HMP Moorland',
           prisonerNumber: 'A1234AB',
         },
         {
@@ -92,7 +89,6 @@ describe('prisonerSearchService', () => {
           firstName: 'JOHN',
           lastName: 'SMITH',
           prisonerNumber: 'A1234AA',
-          prisonName: 'HMP Moorland',
         },
       ])
       expect(prisonerSearchClient.search).toBeCalledWith({ prisonerIdentifier: 'A1234AA', prisonIds }, 'user1')
@@ -103,7 +99,6 @@ describe('prisonerSearchService', () => {
         {
           firstName: 'JOHN',
           lastName: 'SMITH',
-          prisonName: 'HMP Moorland',
           prisonerNumber: 'A1234AA',
         } as PrisonerSearchSummary,
       ])
@@ -115,7 +110,6 @@ describe('prisonerSearchService', () => {
           firstName: 'JOHN',
           lastName: 'SMITH',
           prisonerNumber: 'A1234AA',
-          prisonName: 'HMP Moorland',
         },
       ])
       expect(prisonerSearchClient.search).toBeCalledWith({ lastName: 'Smith', firstName: 'John', prisonIds }, 'user1')

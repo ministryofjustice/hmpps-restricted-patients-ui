@@ -39,12 +39,8 @@ describe('GET /change-supporting-prison/select-patient', () => {
           cellLocation: '1-2-015',
           displayName: 'Smith, John',
           prisonerNumber: 'A1234AA',
-          prisonName: 'HMP Moorland',
           supportingPrisonId: 'DNI',
-          dischargedHospitalId: 'YEWTHO',
           dischargedHospitalDescription: 'Yew Trees',
-          dischargeDate: '2021-06-08',
-          dischargeDetails: 'Psychiatric Hospital Discharge to Yew Trees',
         } as RestrictedPatientSearchSummary,
       ])
     })

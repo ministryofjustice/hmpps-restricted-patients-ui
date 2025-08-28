@@ -45,13 +45,9 @@ beforeEach(() => {
       lastName: 'Smith',
       displayName: 'Smith, John',
       prisonerNumber: 'A1234AA',
-      prisonName: 'HMP Moorland',
       supportingPrisonId: 'DNI',
       supportingPrisonDescription: 'HMP Doncaster',
-      dischargedHospitalId: 'YEWTHO',
       dischargedHospitalDescription: 'Yew Trees',
-      dischargeDate: '2021-06-08',
-      dischargeDetails: 'Psychiatric Hospital Discharge to Yew Trees',
     } as unknown as RestrictedPatientSearchSummary,
   ])
 })
