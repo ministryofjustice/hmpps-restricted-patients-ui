@@ -7,7 +7,7 @@ import RestrictedPatientApiClient, {
   RestrictedPatientDischargeToHospitalRequest,
 } from './restrictedPatientApiClient'
 
-describe('restrictedPatientSearchClient', () => {
+describe('restrictedPatientApiClient', () => {
   let fakeRestrictedPatientApi: nock.Scope
   let client: RestrictedPatientApiClient
   let mockAuthenticationClient: jest.Mocked<AuthenticationClient>

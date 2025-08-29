@@ -1,10 +1,12 @@
-import { ApiConfig, asSystem, RestClient } from '@ministryofjustice/hmpps-rest-client'
+import { ApiConfig, asSystem, asUser, RestClient } from '@ministryofjustice/hmpps-rest-client'
 import { AuthenticationClient } from '@ministryofjustice/hmpps-auth-clients'
-
 import { plainToClass } from 'class-transformer'
+
 import config from '../config'
 import PrisonerSearchResult from './prisonerSearchResult'
 import logger from '../../logger'
+import RestrictedPatientSearchResult from './restrictedPatientSearchResult'
+import RestrictedPatientSearchResults from './restrictedPatientSearchResults'
 
 export interface PrisonerSearchByPrisonerNumber {
   prisonerIdentifier: string
@@ -18,6 +20,17 @@ export interface PrisonerSearchByName {
   prisonIds?: string[]
   includeAliases?: boolean
 }
+
+export interface RestrictedPatientSearchByPrisonerNumber {
+  prisonerIdentifier: string
+}
+
+export interface RestrictedPatientSearchByName {
+  firstName: string
+  lastName: string
+}
+
+export type RestrictedPatientSearchRequest = RestrictedPatientSearchByPrisonerNumber | RestrictedPatientSearchByName
 
 type PrisonerSearchRequest = PrisonerSearchByPrisonerNumber | PrisonerSearchByName
 
@@ -39,5 +52,22 @@ export default class PrisonerSearchClient extends RestClient {
     )
 
     return results.map(result => plainToClass(PrisonerSearchResult, result, { excludeExtraneousValues: true }))
+  }
+
+  async restrictedPatientSearch(
+    searchRequest: RestrictedPatientSearchRequest,
+    token: string,
+  ): Promise<RestrictedPatientSearchResult[]> {
+    const results = await this.post<RestrictedPatientSearchResults>(
+      {
+        path: `/restricted-patient-search/match-restricted-patients?size=3000`,
+        data: { ...searchRequest },
+      },
+      asUser(token),
+    )
+
+    return results?.content.map(result =>
+      plainToClass(RestrictedPatientSearchResult, result, { excludeExtraneousValues: true }),
+    )
   }
 }

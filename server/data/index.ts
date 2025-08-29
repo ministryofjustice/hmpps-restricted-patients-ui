@@ -18,7 +18,6 @@ import PrisonApiClient from './prisonApiClient'
 import logger from '../../logger'
 import PrisonerSearchClient from './prisonerSearchClient'
 import RestrictedPatientApiClient from './restrictedPatientApiClient'
-import RestrictedPatientSearchClient from './restrictedPatientSearchClient'
 
 export const dataAccess = () => {
   const authenticationClient = new AuthenticationClient(
@@ -33,7 +32,6 @@ export const dataAccess = () => {
     prisonApiClient: new PrisonApiClient(authenticationClient),
     prisonerSearchClient: new PrisonerSearchClient(authenticationClient),
     restrictedPatientApiClient: new RestrictedPatientApiClient(authenticationClient),
-    restrictedPatientSearchClient: new RestrictedPatientSearchClient(),
   }
 }
 
