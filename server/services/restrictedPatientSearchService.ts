@@ -1,16 +1,15 @@
 import { asUser } from '@ministryofjustice/hmpps-rest-client'
 
-import type {
-  RestrictedPatientSearchByName,
-  RestrictedPatientSearchByPrisonerNumber,
-} from '../data/restrictedPatientSearchClient'
-import RestrictedPatientSearchClient from '../data/restrictedPatientSearchClient'
 import RestrictedPatientSearchResult from '../data/restrictedPatientSearchResult'
 
 import { convertToTitleCase } from '../utils/utils'
 
 import { Context } from './context'
 import PrisonApiClient, { Agency } from '../data/prisonApiClient'
+import PrisonerSearchClient, {
+  RestrictedPatientSearchByName,
+  RestrictedPatientSearchByPrisonerNumber,
+} from '../data/prisonerSearchClient'
 
 export interface RestrictedPatientSearchSummary extends RestrictedPatientSearchResult {
   displayName: string
@@ -35,7 +34,7 @@ export interface RestrictedPatientSearchCriteria {
 export default class RestrictedPatientSearchService {
   constructor(
     private readonly prisonApiClient: PrisonApiClient,
-    private readonly restrictedPatientSearchClient: RestrictedPatientSearchClient,
+    private readonly prisonerSearchClient: PrisonerSearchClient,
   ) {}
 
   async search(search: RestrictedPatientSearchCriteria, user: Context): Promise<RestrictedPatientSearchSummary[]> {
@@ -46,7 +45,7 @@ export default class RestrictedPatientSearchService {
       : searchByName(searchTerm)
 
     const [results, prisons]: [RestrictedPatientSearchResult[], Agency[]] = await Promise.all([
-      this.restrictedPatientSearchClient.search(searchRequest, user.token),
+      this.prisonerSearchClient.restrictedPatientSearch(searchRequest, user.token),
       this.prisonApiClient.getAgenciesByType('INST', asUser(user.token)),
     ])
 
