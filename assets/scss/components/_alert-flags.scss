@@ -47,10 +47,6 @@
 .alert-status {
   @extend %status-style;
 
-  @media screen {
-    min-height: 30px;
-  }
-
   img {
     height: 14px;
     margin-right: 3px;
@@ -128,7 +124,6 @@
 .alert-status--multicase {
   @media screen {
     text-transform: none;
-    min-height: 30px;
   }
 }
 
