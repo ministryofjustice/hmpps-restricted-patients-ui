@@ -82,7 +82,7 @@ describe('prisonerSearchService', () => {
           formattedAlerts: [
             {
               alertCodes: ['XCU'],
-              classes: 'alert-status alert-status--controlled-unlock',
+              classes: 'alert-status alert-status--security',
               label: 'Controlled unlock',
             },
           ],
@@ -186,7 +186,7 @@ describe('prisonerSearchService', () => {
         formattedAlerts: [
           {
             alertCodes: ['XCU'],
-            classes: 'alert-status alert-status--controlled-unlock',
+            classes: 'alert-status alert-status--security',
             label: 'Controlled unlock',
           },
         ],
