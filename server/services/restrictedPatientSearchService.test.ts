@@ -54,25 +54,17 @@ describe('restrictedPatientSearchService', () => {
           ],
           firstName: 'JOHN',
           lastName: 'SMITH',
-          prisonName: 'HMP Moorland',
           prisonerNumber: 'A1234AA',
           supportingPrisonId: 'MDI',
-          dischargedHospitalId: 'HAZLWD',
           dischargedHospitalDescription: 'Hazelwood House',
-          dischargeDate: '2021-06-07',
-          dischargeDetails: 'Psychiatric Hospital Discharge to Hazelwood House',
         } as RestrictedPatientSearchResult,
         {
           alerts: [],
           firstName: 'STEVE',
           lastName: 'JONES',
-          prisonName: 'HMP Doncaster',
           prisonerNumber: 'A1234AB',
           supportingPrisonId: 'DNI',
-          dischargedHospitalId: 'YEWTHO',
           dischargedHospitalDescription: 'Yew Trees',
-          dischargeDate: '2021-06-08',
-          dischargeDetails: 'Psychiatric Hospital Discharge to Yew Trees',
         } as RestrictedPatientSearchResult,
       ])
 
@@ -92,11 +84,8 @@ describe('restrictedPatientSearchService', () => {
         {
           firstName: 'JOHN',
           lastName: 'SMITH',
-          prisonName: 'HMP Moorland',
           prisonerNumber: 'A1234AA',
           supportingPrisonId: 'MDI',
-          dischargedHospitalId: 'HAZLWD',
-          dischargeDate: '2021-06-07',
         } as RestrictedPatientSearchResult,
       ])
 
@@ -130,20 +119,14 @@ describe('restrictedPatientSearchService', () => {
         {
           firstName: 'JOHN',
           lastName: 'SMITH',
-          prisonName: 'HMP Moorland',
           prisonerNumber: 'A1234AA',
           supportingPrisonId: 'MDI',
-          dischargedHospitalId: 'HAZLWD',
-          dischargeDate: '2021-06-07',
         } as RestrictedPatientSearchResult,
         {
           firstName: 'JOHN',
           lastName: 'SMITH',
-          prisonName: 'HMP Leeds',
           prisonerNumber: 'A1234AA',
           supportingPrisonId: 'LEI',
-          dischargedHospitalId: 'HAZLWD',
-          dischargeDate: '2021-06-07',
         } as RestrictedPatientSearchResult,
       ])
 
