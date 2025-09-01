@@ -47,7 +47,7 @@ const stubSearch = ({ query = defaultSearchQuery, results = defaultSearchRespons
   stubFor({
     request: {
       method: 'POST',
-      urlPattern: '/search/prisoner-search/match-prisoners',
+      urlPattern: '/search/prisoner-search/match-prisoners\\?responseFieldsClient=restricted-patients',
       bodyPatterns: [query],
     },
     response: {
@@ -63,7 +63,8 @@ const stubRestrictedPatientSearch = ({ results = defaultSearchResponse } = defau
   stubFor({
     request: {
       method: 'POST',
-      urlPattern: '/search/restricted-patient-search/match-restricted-patients\\?size=3000',
+      urlPattern:
+        '/search/restricted-patient-search/match-restricted-patients\\?size=3000&responseFieldsClient=restricted-patients',
     },
     response: {
       status: 200,

@@ -43,6 +43,7 @@ export default class PrisonerSearchClient extends RestClient {
     const results = await this.post<PrisonerSearchResult[]>(
       {
         path: `/prisoner-search/match-prisoners`,
+        query: { responseFieldsClient: 'restricted-patients' },
         data: {
           includeAliases: false,
           ...searchRequest,
@@ -60,7 +61,8 @@ export default class PrisonerSearchClient extends RestClient {
   ): Promise<RestrictedPatientSearchResult[]> {
     const results = await this.post<RestrictedPatientSearchResults>(
       {
-        path: `/restricted-patient-search/match-restricted-patients?size=3000`,
+        path: `/restricted-patient-search/match-restricted-patients`,
+        query: { size: 3000, responseFieldsClient: 'restricted-patients' },
         data: { ...searchRequest },
       },
       asUser(token),
