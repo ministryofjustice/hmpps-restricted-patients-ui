@@ -27,7 +27,7 @@ describe('prisonerSearchClient', () => {
     const results: unknown[] = []
     fakePrisonerSearchApi
       .post(
-        `/prisoner-search/match-prisoners`,
+        `/prisoner-search/match-prisoners?responseFieldsClient=restricted-patients`,
         '{"includeAliases":false,"prisonerIdentifier":"A1234AA","prisonIds":["PR1","PR2"]}',
       )
       .matchHeader('authorization', 'Bearer test-system-token')
@@ -43,7 +43,7 @@ describe('prisonerSearchClient', () => {
     const results: unknown[] = []
     fakePrisonerSearchApi
       .post(
-        `/prisoner-search/match-prisoners`,
+        `/prisoner-search/match-prisoners?responseFieldsClient=restricted-patients`,
         '{"includeAliases":false,"firstName":"John","lastName":"Smith","prisonIds":["PR1","PR2"]}',
       )
       .matchHeader('authorization', 'Bearer test-system-token')
@@ -58,7 +58,10 @@ describe('prisonerSearchClient', () => {
   it('search including aliases', async () => {
     const results: unknown[] = []
     fakePrisonerSearchApi
-      .post(`/prisoner-search/match-prisoners`, '{"includeAliases":true,"prisonerIdentifier":"A1234AA"}')
+      .post(
+        `/prisoner-search/match-prisoners?responseFieldsClient=restricted-patients`,
+        '{"includeAliases":true,"prisonerIdentifier":"A1234AA"}',
+      )
       .matchHeader('authorization', 'Bearer test-system-token')
       .reply(200, results)
 
@@ -82,7 +85,10 @@ describe('prisonerSearchClient', () => {
     ]
 
     fakePrisonerSearchApi
-      .post(`/prisoner-search/match-prisoners`, '{"includeAliases":false,"prisonerIdentifier":"A1234AA"}')
+      .post(
+        `/prisoner-search/match-prisoners?responseFieldsClient=restricted-patients`,
+        '{"includeAliases":false,"prisonerIdentifier":"A1234AA"}',
+      )
       .matchHeader('authorization', 'Bearer test-system-token')
       .reply(200, response)
 
@@ -105,7 +111,10 @@ describe('prisonerSearchClient', () => {
     const response: unknown = { content: [] }
     const results: unknown[] = []
     fakePrisonerSearchApi
-      .post(`/restricted-patient-search/match-restricted-patients?size=3000`, '{"prisonerIdentifier":"A1234AA"}')
+      .post(
+        `/restricted-patient-search/match-restricted-patients?size=3000&responseFieldsClient=restricted-patients`,
+        '{"prisonerIdentifier":"A1234AA"}',
+      )
       .matchHeader('authorization', `Bearer ${token}`)
       .reply(200, response)
 
@@ -119,7 +128,10 @@ describe('prisonerSearchClient', () => {
     const response: unknown = { content: [] }
     const results: unknown[] = []
     fakePrisonerSearchApi
-      .post(`/restricted-patient-search/match-restricted-patients?size=3000`, '{"firstName":"John","lastName":"Smith"}')
+      .post(
+        `/restricted-patient-search/match-restricted-patients?size=3000&responseFieldsClient=restricted-patients`,
+        '{"firstName":"John","lastName":"Smith"}',
+      )
       .matchHeader('authorization', `Bearer ${token}`)
       .reply(200, response)
 
@@ -155,7 +167,10 @@ describe('prisonerSearchClient', () => {
     }
 
     fakePrisonerSearchApi
-      .post(`/restricted-patient-search/match-restricted-patients?size=3000`, '{"prisonerIdentifier":"A1234AA"}')
+      .post(
+        `/restricted-patient-search/match-restricted-patients?size=3000&responseFieldsClient=restricted-patients`,
+        '{"prisonerIdentifier":"A1234AA"}',
+      )
       .matchHeader('authorization', `Bearer ${token}`)
       .reply(200, response)
 
