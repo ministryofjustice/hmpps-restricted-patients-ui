@@ -51,4 +51,5 @@ generic-service:
       - private_prisons
 
 generic-prometheus-alerts:
+  alertSeverity: syscon
   targetApplication: hmpps-restricted-patients-ui
