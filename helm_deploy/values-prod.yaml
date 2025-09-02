@@ -18,8 +18,6 @@ generic-service:
     PRISONER_PROFILE_URL: https://prisoner.digital.prison.service.justice.gov.uk
 
 generic-prometheus-alerts:
-  alertSeverity: digital-prison-service
-
   elastiCacheAlertsClusterIds:
     cp-86f10ddc2a6e2553-001: "HMPPS Restricted Patients ElastiCache Cluster Node 1"
     cp-86f10ddc2a6e2553-002: "HMPPS Restricted Patients ElastiCache Cluster Node 2"
