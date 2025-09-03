@@ -1,5 +1,5 @@
 import { Expose, Type } from 'class-transformer'
-import { AlertType } from '../common/alertFlagValues'
+import { Alert } from '@ministryofjustice/hmpps-connect-dps-shared-items'
 
 export default class PrisonerSearchResult {
   @Expose()
@@ -22,7 +22,7 @@ export default class PrisonerSearchResult {
   sentenceExpiryDate: Date
 
   @Expose()
-  alerts: AlertType[]
+  alerts: Alert[]
 
   @Expose()
   restrictedPatient: boolean

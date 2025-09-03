@@ -75,6 +75,8 @@ context('Move prisoner', () => {
         alerts: [
           { active: true, alertType: 'T', alertCode: 'TCPA' },
           { active: true, alertType: 'X', alertCode: 'XCU' },
+          { active: true, alertType: 'X', alertCode: 'XER' },
+          { active: true, alertType: 'R', alertCode: 'RTP' },
         ],
       },
     })

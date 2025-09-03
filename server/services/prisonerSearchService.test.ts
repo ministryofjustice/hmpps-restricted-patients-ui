@@ -37,8 +37,8 @@ describe('prisonerSearchService', () => {
       prisonerSearchClient.search.mockResolvedValue([
         {
           alerts: [
-            { expired: false, alertType: 'T', alertCode: 'TCPA' },
-            { expired: false, alertType: 'X', alertCode: 'XCU' },
+            { active: true, expired: false, alertType: 'T', alertCode: 'TCPA' },
+            { active: true, expired: false, alertType: 'X', alertCode: 'XCU' },
           ],
           firstName: 'JOHN',
           lastName: 'SMITH',
@@ -66,23 +66,16 @@ describe('prisonerSearchService', () => {
         },
         {
           alerts: [
-            {
-              alertCode: 'TCPA',
-              alertType: 'T',
-              expired: false,
-            },
-            {
-              alertCode: 'XCU',
-              alertType: 'X',
-              expired: false,
-            },
+            { active: true, expired: false, alertType: 'T', alertCode: 'TCPA' },
+            { active: true, expired: false, alertType: 'X', alertCode: 'XCU' },
           ],
           cellLocation: '1-2-015',
           displayName: 'Smith, John',
           formattedAlerts: [
             {
+              alertIds: ['XCU'],
               alertCodes: ['XCU'],
-              classes: 'alert-status alert-status--security',
+              classes: 'dps-alert-status dps-alert-status--security',
               label: 'Controlled unlock',
             },
           ],
@@ -100,12 +93,14 @@ describe('prisonerSearchService', () => {
           firstName: 'JOHN',
           lastName: 'SMITH',
           prisonerNumber: 'A1234AA',
+          alerts: [],
         } as PrisonerSearchSummary,
       ])
       const results = await service.search({ searchTerm: 'Smith, John', prisonIds }, user)
       expect(results).toStrictEqual([
         {
           displayName: 'Smith, John',
+          alerts: [],
           formattedAlerts: [],
           firstName: 'JOHN',
           lastName: 'SMITH',
@@ -162,9 +157,9 @@ describe('prisonerSearchService', () => {
         assignedLivingUnit: { description: '1-2-015' },
         categoryCode: 'C',
         alerts: [
-          { expired: false, alertType: 'T', alertCode: 'TCPA' },
-          { expired: false, alertType: 'X', alertCode: 'XCU' },
-          { expired: true, alertType: 'X', alertCode: 'XGANG' },
+          { active: true, expired: false, alertType: 'T', alertCode: 'TCPA' },
+          { active: true, expired: false, alertType: 'X', alertCode: 'XCU' },
+          { active: true, expired: true, alertType: 'X', alertCode: 'XGANG' },
         ],
       } as PrisonerResult)
 
@@ -175,9 +170,9 @@ describe('prisonerSearchService', () => {
 
       expect(result).toEqual({
         alerts: [
-          { expired: false, alertCode: 'TCPA', alertType: 'T' },
-          { expired: false, alertCode: 'XCU', alertType: 'X' },
-          { expired: true, alertCode: 'XGANG', alertType: 'X' },
+          { active: true, expired: false, alertType: 'T', alertCode: 'TCPA' },
+          { active: true, expired: false, alertType: 'X', alertCode: 'XCU' },
+          { active: true, expired: true, alertType: 'X', alertCode: 'XGANG' },
         ],
         assignedLivingUnit: { description: '1-2-015' },
         categoryCode: 'C',
@@ -185,8 +180,9 @@ describe('prisonerSearchService', () => {
         firstName: 'JOHN',
         formattedAlerts: [
           {
+            alertIds: ['XCU'],
             alertCodes: ['XCU'],
-            classes: 'alert-status alert-status--security',
+            classes: 'dps-alert-status dps-alert-status--security',
             label: 'Controlled unlock',
           },
         ],

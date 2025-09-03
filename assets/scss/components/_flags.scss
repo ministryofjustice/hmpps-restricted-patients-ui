@@ -1,0 +1,41 @@
+.alerts-list {
+  @extend %govuk-list;
+  margin-bottom: 0;
+
+  @media screen {
+    display: flex;
+    flex-wrap: wrap;
+  }
+
+  li {
+    margin-bottom: 10px;
+    margin-right: 10px;
+  }
+}
+
+.alerts-list-no-flex {
+  @extend %govuk-list;
+  margin-bottom: 0;
+}
+
+.cat-a-status {
+  @extend %status-style;
+
+  &--a,
+  &--e {
+    color: #00437b;
+    border-color: #00437b;
+  }
+
+  &--h {
+    background-color: #00437b;
+    color: white;
+    border-color: #00437b;
+  }
+
+  &--p {
+    border: 3px dashed;
+    color: #00437b;
+    border-color: #00437b;
+  }
+}
