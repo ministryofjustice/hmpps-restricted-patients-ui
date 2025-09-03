@@ -1,6 +1,5 @@
+import { Alert } from '@ministryofjustice/hmpps-connect-dps-shared-items'
 import { Expose } from 'class-transformer'
-
-import { AlertType } from '../common/alertFlagValues'
 
 type AssignedLivingUnit = {
   agencyId: string
@@ -29,5 +28,5 @@ export default class PrisonerResult {
   categoryCode: string
 
   @Expose()
-  alerts: AlertType[]
+  alerts: Alert[]
 }

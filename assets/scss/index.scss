@@ -10,13 +10,14 @@ $govuk-font-family-print: 'GDS Transport';
 
 @import '@ministryofjustice/hmpps-connect-dps-components/dist/assets/footer';
 @import '@ministryofjustice/hmpps-connect-dps-components/dist/assets/header-bar';
+@import '@ministryofjustice/hmpps-connect-dps-shared-items/dist/assets/scss/all';
 
 @import './pages/_homepage.scss';
 
 @import './components/card';
 @import './components/header-bar';
 @import './components/footer';
-@import './components/alert-flags';
+@import './components/flags';
 @import './components/results-table';
 @import './components/autocomplete';
 @import './components/feedback-banner';

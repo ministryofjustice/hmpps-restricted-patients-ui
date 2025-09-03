@@ -1,3 +1,5 @@
+{% from "dps/components/alert-flag/macro.njk" import alertFlag %}
+
 {% macro alertFlags(alerts, newLine = false) %}
   {% set alertClass %}
     {% if newLine %}
@@ -9,9 +11,8 @@
   {% if alerts.length %}
     <ul class={{alertClass}}>
         {% for alert in alerts %}
-          <li class="{{ alert.classes }}">
-            {{ alert.label }}
-          </li>{% if newLine %}<br>{% endif %}
+          <li>{{ alertFlag({ alert: alert }) }}</li>
+          {% if newLine %}<br>{% endif %}
         {% endfor %}
       </ul>
   {% endif %}
