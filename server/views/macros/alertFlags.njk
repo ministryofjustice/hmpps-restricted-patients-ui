@@ -12,7 +12,6 @@
     <ul class={{alertClass}}>
         {% for alert in alerts %}
           <li>{{ alertFlag({ alert: alert }) }}</li>
-          {% if newLine %}<br>{% endif %}
         {% endfor %}
       </ul>
   {% endif %}
