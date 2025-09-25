@@ -27,7 +27,7 @@ jobs:
         shell: bash
         run: |
           FOUND_FINISHED=false
-          OUTPUT=$(gh run list --repo "${{ github.repository }}" --workflow "${{ inputs.pipeline }}" --branch "${{ inputs.branch }} --limit 100 --json status,conclusion,databaseId | jq -r '.[] | [ .databaseId, .status, .conclusion ] | join(" ")')
+          OUTPUT=$(gh run list --repo "${{ github.repository }}" --workflow "${{ inputs.pipeline }}" --branch "${{ inputs.branch }}" --limit 100 --json status,conclusion,databaseId | jq -r '.[] | [ .databaseId, .status, .conclusion ] | join(" ")')
           echo "$OUTPUT" | while read -r DATABASE_ID STATUS CONCLUSION;do
             if [[ "$FOUND_FINISHED" == "false" && "$STATUS" == "completed" && "$CONCLUSION" == "success" ]]; then
               FOUND_FINISHED=true
