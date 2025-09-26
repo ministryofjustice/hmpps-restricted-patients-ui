@@ -34,7 +34,7 @@ describe('removeRestrictedPatientService', () => {
 
       const response = await service.removeRestrictedPatient('A1234AA', user)
 
-      expect(restrictedPatientApiClient.removePatient).toBeCalledWith('A1234AA', user.username)
+      expect(restrictedPatientApiClient.removePatient).toHaveBeenCalledWith('A1234AA', user.username)
       expect(response).toStrictEqual({})
     })
   })
@@ -56,7 +56,7 @@ describe('removeRestrictedPatientService', () => {
         tokenType: 'USER_TOKEN',
         user: { token: 'token-1' },
       })
-      expect(restrictedPatientApiClient.getPatient).toBeCalledWith('A1234AA', user.token)
+      expect(restrictedPatientApiClient.getPatient).toHaveBeenCalledWith('A1234AA', user.token)
       expect(response).toStrictEqual({
         displayName: 'Smith, John',
         friendlyName: 'John Smith',

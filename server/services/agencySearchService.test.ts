@@ -56,11 +56,11 @@ describe('agencySearchService', () => {
     it('makes the correct calls and returns the hospitals', async () => {
       const results = await service.getHospitals(user)
 
-      expect(prisonApiClient.getAgenciesByType).toBeCalledWith('HOSPITAL', {
+      expect(prisonApiClient.getAgenciesByType).toHaveBeenCalledWith('HOSPITAL', {
         tokenType: 'USER_TOKEN',
         user: { token: 'token-1' },
       })
-      expect(prisonApiClient.getAgenciesByType).toBeCalledWith('HSHOSP', {
+      expect(prisonApiClient.getAgenciesByType).toHaveBeenCalledWith('HSHOSP', {
         tokenType: 'USER_TOKEN',
         user: { token: 'token-1' },
       })
@@ -106,7 +106,7 @@ describe('agencySearchService', () => {
     it('makes the correct calls and returns the prisons', async () => {
       const results = await service.getPrisons(user)
 
-      expect(prisonApiClient.getAgenciesByType).toBeCalledWith('INST', {
+      expect(prisonApiClient.getAgenciesByType).toHaveBeenCalledWith('INST', {
         tokenType: 'USER_TOKEN',
         user: { token: 'token-1' },
       })
@@ -136,7 +136,7 @@ describe('agencySearchService', () => {
     it('makes the correct calls and returns the hospital details', async () => {
       const results = await service.getAgency('SHEFF', user)
 
-      expect(prisonApiClient.getAgencyDetails).toBeCalledWith('SHEFF', {
+      expect(prisonApiClient.getAgencyDetails).toHaveBeenCalledWith('SHEFF', {
         tokenType: 'USER_TOKEN',
         user: { token: 'token-1' },
       })
