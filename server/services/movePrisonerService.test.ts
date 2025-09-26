@@ -34,7 +34,7 @@ describe('movePrisonerService', () => {
     it('makes the correct calls and returns the received data', async () => {
       const results = await service.dischargePatientToHospital('A1234AA', 'MDI', 'SHEFF', user)
 
-      expect(restrictedPatientApiClient.dischargePatient).toBeCalledWith(
+      expect(restrictedPatientApiClient.dischargePatient).toHaveBeenCalledWith(
         {
           offenderNo: 'A1234AA',
           fromLocationId: 'MDI',
@@ -62,7 +62,7 @@ describe('movePrisonerService', () => {
     it('makes the correct calls and returns the received data', async () => {
       const results = await service.changeSupportingPrison('A1234AA', 'MDI', user)
 
-      expect(restrictedPatientApiClient.changeSupportingPrison).toBeCalledWith(
+      expect(restrictedPatientApiClient.changeSupportingPrison).toHaveBeenCalledWith(
         {
           offenderNo: 'A1234AA',
           supportingPrisonId: 'MDI',

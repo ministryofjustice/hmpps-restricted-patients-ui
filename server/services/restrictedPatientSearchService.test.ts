@@ -76,7 +76,10 @@ describe('restrictedPatientSearchService', () => {
         ]),
       )
 
-      expect(prisonerSearchClient.restrictedPatientSearch).toBeCalledWith({ prisonerIdentifier: 'A1234AA' }, user.token)
+      expect(prisonerSearchClient.restrictedPatientSearch).toHaveBeenCalledWith(
+        { prisonerIdentifier: 'A1234AA' },
+        user.token,
+      )
     })
 
     it('search by prisoner name', async () => {
@@ -91,7 +94,7 @@ describe('restrictedPatientSearchService', () => {
 
       const results = await service.search({ searchTerm: 'Smith, John' }, user)
       expect(results).toEqual(expect.arrayContaining([expect.objectContaining({ displayName: 'Smith, John' })]))
-      expect(prisonerSearchClient.restrictedPatientSearch).toBeCalledWith(
+      expect(prisonerSearchClient.restrictedPatientSearch).toHaveBeenCalledWith(
         { lastName: 'Smith', firstName: 'John' },
         user.token,
       )
@@ -99,12 +102,12 @@ describe('restrictedPatientSearchService', () => {
 
     it('search by prisoner surname only', async () => {
       await service.search({ searchTerm: 'Smith' }, user)
-      expect(prisonerSearchClient.restrictedPatientSearch).toBeCalledWith({ lastName: 'Smith' }, user.token)
+      expect(prisonerSearchClient.restrictedPatientSearch).toHaveBeenCalledWith({ lastName: 'Smith' }, user.token)
     })
 
     it('search by prisoner name separated by a space', async () => {
       await service.search({ searchTerm: 'Smith John' }, user)
-      expect(prisonerSearchClient.restrictedPatientSearch).toBeCalledWith(
+      expect(prisonerSearchClient.restrictedPatientSearch).toHaveBeenCalledWith(
         { lastName: 'Smith', firstName: 'John' },
         user.token,
       )
@@ -112,7 +115,7 @@ describe('restrictedPatientSearchService', () => {
 
     it('search by prisoner name separated by many spaces', async () => {
       await service.search({ searchTerm: '    Smith   John ' }, user)
-      expect(prisonerSearchClient.restrictedPatientSearch).toBeCalledWith(
+      expect(prisonerSearchClient.restrictedPatientSearch).toHaveBeenCalledWith(
         { lastName: 'Smith', firstName: 'John' },
         user.token,
       )
@@ -120,7 +123,10 @@ describe('restrictedPatientSearchService', () => {
 
     it('search by prisoner identifier with extra spaces', async () => {
       await service.search({ searchTerm: '    A1234AA ' }, user)
-      expect(prisonerSearchClient.restrictedPatientSearch).toBeCalledWith({ prisonerIdentifier: 'A1234AA' }, user.token)
+      expect(prisonerSearchClient.restrictedPatientSearch).toHaveBeenCalledWith(
+        { prisonerIdentifier: 'A1234AA' },
+        user.token,
+      )
     })
 
     it('augments supporting prison with description', async () => {

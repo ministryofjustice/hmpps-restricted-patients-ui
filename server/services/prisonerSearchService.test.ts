@@ -84,7 +84,7 @@ describe('prisonerSearchService', () => {
           prisonerNumber: 'A1234AA',
         },
       ])
-      expect(prisonerSearchClient.search).toBeCalledWith({ prisonerIdentifier: 'A1234AA', prisonIds }, 'user1')
+      expect(prisonerSearchClient.search).toHaveBeenCalledWith({ prisonerIdentifier: 'A1234AA', prisonIds }, 'user1')
     })
 
     it('search by prisoner name', async () => {
@@ -107,27 +107,36 @@ describe('prisonerSearchService', () => {
           prisonerNumber: 'A1234AA',
         },
       ])
-      expect(prisonerSearchClient.search).toBeCalledWith({ lastName: 'Smith', firstName: 'John', prisonIds }, 'user1')
+      expect(prisonerSearchClient.search).toHaveBeenCalledWith(
+        { lastName: 'Smith', firstName: 'John', prisonIds },
+        'user1',
+      )
     })
 
     it('search by prisoner surname only', async () => {
       await service.search({ searchTerm: 'Smith', prisonIds }, user)
-      expect(prisonerSearchClient.search).toBeCalledWith({ lastName: 'Smith', prisonIds }, 'user1')
+      expect(prisonerSearchClient.search).toHaveBeenCalledWith({ lastName: 'Smith', prisonIds }, 'user1')
     })
 
     it('search by prisoner name separated by a space', async () => {
       await service.search({ searchTerm: 'Smith John', prisonIds }, user)
-      expect(prisonerSearchClient.search).toBeCalledWith({ lastName: 'Smith', firstName: 'John', prisonIds }, 'user1')
+      expect(prisonerSearchClient.search).toHaveBeenCalledWith(
+        { lastName: 'Smith', firstName: 'John', prisonIds },
+        'user1',
+      )
     })
 
     it('search by prisoner name separated by many spaces', async () => {
       await service.search({ searchTerm: '    Smith   John ', prisonIds }, user)
-      expect(prisonerSearchClient.search).toBeCalledWith({ lastName: 'Smith', firstName: 'John', prisonIds }, 'user1')
+      expect(prisonerSearchClient.search).toHaveBeenCalledWith(
+        { lastName: 'Smith', firstName: 'John', prisonIds },
+        'user1',
+      )
     })
 
     it('search by prisoner identifier with extra spaces', async () => {
       await service.search({ searchTerm: '    A1234AA ', prisonIds }, user)
-      expect(prisonerSearchClient.search).toBeCalledWith({ prisonerIdentifier: 'A1234AA', prisonIds }, 'user1')
+      expect(prisonerSearchClient.search).toHaveBeenCalledWith({ prisonerIdentifier: 'A1234AA', prisonIds }, 'user1')
     })
   })
 
@@ -141,7 +150,7 @@ describe('prisonerSearchService', () => {
       })
 
       expect(result.read()).toEqual('image data')
-      expect(prisonApiClient.getPrisonerImage).toBeCalledWith('A1234AA', {
+      expect(prisonApiClient.getPrisonerImage).toHaveBeenCalledWith('A1234AA', {
         tokenType: 'SYSTEM_TOKEN',
         user: { username: 'user1' },
       })
@@ -191,7 +200,7 @@ describe('prisonerSearchService', () => {
         offenderNo: 'A1234AA',
         prisonerNumber: 'A1234AA',
       })
-      expect(prisonApiClient.getPrisonerDetails).toBeCalledWith('A1234AA', {
+      expect(prisonApiClient.getPrisonerDetails).toHaveBeenCalledWith('A1234AA', {
         tokenType: 'SYSTEM_TOKEN',
         user: { username: 'user1' },
       })
