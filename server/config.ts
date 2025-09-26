@@ -96,6 +96,15 @@ export default {
       agent: new AgentConfig(Number(get('RESTRICTED_PATIENT_API_TIMEOUT_RESPONSE', 30000))),
     },
   },
+  // don't want this in apis as will need to provide a health check which isn't necessary as it has a fallback instead.
+  componentApi: {
+    url: get('COMPONENT_API_URL', 'http://localhost:8082', requiredInProduction),
+    timeout: {
+      response: Number(get('COMPONENT_TIMEOUT_RESPONSE', 10000)),
+      deadline: Number(get('COMPONENT_TIMEOUT_DEADLINE', 10000)),
+    },
+    agent: new AgentConfig(Number(get('COMPONENT_TIMEOUT_DEADLINE', 10000))),
+  },
   ingressUrl: get('INGRESS_URL', 'http://localhost:3000', requiredInProduction),
   dpsUrl: get('DPS_URL', 'http://localhost:8281', requiredInProduction),
   prisonerProfileUrl: get('PRISONER_PROFILE_URL', 'http://localhost:3002', requiredInProduction),

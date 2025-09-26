@@ -2,7 +2,7 @@ import 'reflect-metadata'
 import express from 'express'
 
 import createError from 'http-errors'
-import dpsComponents from '@ministryofjustice/hmpps-connect-dps-components'
+import { getFrontendComponents } from '@ministryofjustice/hmpps-connect-dps-components'
 
 import nunjucksSetup from './utils/nunjucksSetup'
 import errorHandler from './errorHandler'
@@ -22,6 +22,7 @@ import setupJourneyStart from './routes/journeyStartRouter'
 import routes from './routes'
 import config from './config'
 import type { Services } from './services'
+import logger from '../logger'
 
 export default function createApp(services: Services): express.Application {
   const app = express()
@@ -43,9 +44,11 @@ export default function createApp(services: Services): express.Application {
 
   app.use(
     '*any',
-    dpsComponents.getPageComponents({
-      includeSharedData: true,
+    getFrontendComponents({
+      logger,
+      componentApiConfig: config.componentApi,
       dpsUrl: config.dpsUrl,
+      requestOptions: { includeSharedData: true },
     }),
   )
 
