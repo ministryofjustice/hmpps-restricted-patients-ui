@@ -5,7 +5,6 @@ export declare module 'express-session' {
   interface SessionData {
     journeyStartUrl: query
     returnTo: string
-    nowInMinutes: number
     userDetails: {
       activeCaseLoadId: string
     }
