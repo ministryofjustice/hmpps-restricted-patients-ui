@@ -32,7 +32,7 @@
     "npm": "^11"
   },
   "dependencies": {
-    "@ministryofjustice/frontend": "^7.1.1",
+    "@ministryofjustice/frontend": "7.1.1",
     "@ministryofjustice/hmpps-auth-clients": "^1.0.1",
     "@ministryofjustice/hmpps-connect-dps-components": "5.2",
     "@ministryofjustice/hmpps-connect-dps-shared-items": "^3.2.1",
@@ -65,7 +65,7 @@
   },
   "devDependencies": {
     "@jgoz/esbuild-plugin-typecheck": "^4.0.4",
-    "@ministryofjustice/eslint-config-hmpps": "^1.0.1",
+    "@ministryofjustice/eslint-config-hmpps": "^1.0.2",
     "@ministryofjustice/hmpps-npm-script-allowlist": "0.0.3",
     "@ministryofjustice/hmpps-precommit-hooks": "^1.0.2",
     "@tsconfig/node24": "^24.0.3",
@@ -85,9 +85,9 @@
     "@types/supertest": "^6.0.3",
     "audit-ci": "^7.1.0",
     "cheerio": "^1.1.2",
-    "cypress": "^15.7.1",
+    "cypress": "^15.8.1",
     "cypress-multi-reporters": "^2.0.5",
-    "esbuild": "^0.27.1",
+    "esbuild": "^0.27.2",
     "esbuild-plugin-clean": "^1.0.1",
     "esbuild-plugin-copy": "^2.1.1",
     "esbuild-plugin-manifest": "^1.0.5",
