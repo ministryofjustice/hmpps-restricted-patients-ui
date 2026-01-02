@@ -20,7 +20,7 @@
       preventDoubleClick: true,
       classes: "govuk-!-margin-right-3",
       type: "submit",
-      attributes: { "data-test": "confirm-patient-change-submit" }
+      attributes: { "data-qa": "confirm-patient-change-submit" }
     }) }}
 
     {{ govukButton({
@@ -28,7 +28,7 @@
       element: 'a',
       href: '/back-to-start',
       classes: "govuk-button--secondary",
-      attributes: { "data-test": "confirm-patient-change-cancel" }
+      attributes: { "data-qa": "confirm-patient-change-cancel" }
     }) }}
   </form>
 {% endblock %}

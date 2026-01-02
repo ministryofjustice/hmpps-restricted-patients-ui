@@ -19,7 +19,7 @@
     {{ govukErrorSummary({
       titleText: "There is a problem",
       errorList: errors,
-      attributes: { "data-test": "error-summary" }
+      attributes: { "data-qa": "error-summary" }
     }) }}
   {% endif %}
 
@@ -30,25 +30,25 @@
     
     <div class="horizontal-information__item">
       <h3 class="govuk-heading-s govuk-!-margin-bottom-1">Name</h3>
-      <p class="govuk-!-margin-bottom-0" data-test="prisoner-name">{{ prisoner.displayName }}</p>
+      <p class="govuk-!-margin-bottom-0" data-qa="prisoner-name">{{ prisoner.displayName }}</p>
     </div>
     <div class="horizontal-information__item">
       <h3 class="govuk-heading-s govuk-!-margin-bottom-1">Prison number</h3>
-      <p class="govuk-!-margin-bottom-0" data-test="prisoner-number">{{ prisoner.prisonerNumber }}</p>
+      <p class="govuk-!-margin-bottom-0" data-qa="prisoner-number">{{ prisoner.prisonerNumber }}</p>
     </div>
     <div class="horizontal-information__item">
       <h3 class="govuk-heading-s govuk-!-margin-bottom-1">Cell</h3>
-      <p class="govuk-!-margin-bottom-0" data-test="prisoner-cell-location">{{ prisoner.assignedLivingUnit.description }}</p>
+      <p class="govuk-!-margin-bottom-0" data-qa="prisoner-cell-location">{{ prisoner.assignedLivingUnit.description }}</p>
     </div>
     <div class="horizontal-information__item horizontal-information__item--quarter">
       <h3 class="govuk-heading-s govuk-!-margin-bottom-1">Relevant alerts</h3>
       {% if prisoner.formattedAlerts | length or prisoner.categoryCode %}
-        <div data-test="prisoner-relevant-alerts">
+        <div data-qa="prisoner-relevant-alerts">
           {{ alertFlags(prisoner.formattedAlerts) }}
           {{ categoryFlag('', prisoner.categoryCode, false) }}
         </div>
       {% else %}
-        <p class="govuk-!-margin-bottom-0" data-test="no-alerts">No relevant alerts</p>
+        <p class="govuk-!-margin-bottom-0" data-qa="no-alerts">No relevant alerts</p>
       {% endif %}
     </div>
   </div>
@@ -68,7 +68,7 @@
           errorMessage: errors | findError("hospital"),
           classes: "js-agency-select",
           attributes: {
-            "data-test": "select-hospital-input"
+            "data-qa": "select-hospital-input"
           }
         }) }}
 
@@ -77,7 +77,7 @@
           preventDoubleClick: true,
           classes: "govuk-!-margin-right-3 js-agency-submit",
           type: "submit",
-          attributes: { "data-test": "select-hospital-submit" }
+          attributes: { "data-qa": "select-hospital-submit" }
         }) }}
 
         {{ govukButton({
@@ -85,7 +85,7 @@
           element: 'a',
           href: '/back-to-start',
           classes: "govuk-button--secondary",
-          attributes: { "data-test": "select-hospital-cancel" }
+          attributes: { "data-qa": "select-hospital-cancel" }
         }) }}
       </form>
     </div>

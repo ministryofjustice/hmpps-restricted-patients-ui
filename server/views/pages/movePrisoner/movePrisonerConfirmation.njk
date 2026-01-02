@@ -21,7 +21,7 @@
       preventDoubleClick: true,
       classes: "govuk-!-margin-right-3",
       type: "submit",
-      attributes: { "data-test": "confirm-prisoner-move-submit" }
+      attributes: { "data-qa": "confirm-prisoner-move-submit" }
     }) }}
 
     {{ govukButton({
@@ -29,7 +29,7 @@
       element: 'a',
       href: '/back-to-start',
       classes: "govuk-button--secondary",
-      attributes: { "data-test": "confirm-prisoner-move-cancel" }
+      attributes: { "data-qa": "confirm-prisoner-move-cancel" }
     }) }}
   </form>
 {% endblock %}

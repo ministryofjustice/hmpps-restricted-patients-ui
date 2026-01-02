@@ -17,7 +17,7 @@
     {{ govukErrorSummary({
       titleText: "There is a problem",
       errorList: errors,
-      attributes: { "data-test": "error-summary" }
+      attributes: { "data-qa": "error-summary" }
     }) }}
   {% endif %}
 
@@ -31,10 +31,10 @@
       <img src="/prisoner/{{ prisoner.prisonerNumber }}/image" alt="Photograph of {{ prisoner.displayName }}" class="results-table__image" />
     {% endset -%}
     {% set prisonerLinkHtml %}
-      <a href="{{ prisonerProfileUrl }}/prisoner/{{ prisoner.prisonerNumber }}" class="govuk-link" data-test="view-prisoner-profile">{{ prisoner.displayName }}</a>
+      <a href="{{ prisonerProfileUrl }}/prisoner/{{ prisoner.prisonerNumber }}" class="govuk-link" data-qa="view-prisoner-profile">{{ prisoner.displayName }}</a>
     {% endset -%}
     {% set addCaseNoteLinkHtml %}
-      <a href="{{ prisonerProfileUrl }}/prisoner/{{ prisoner.prisonerNumber }}/add-case-note" class="govuk-link" data-test="patient-add-case-note-link"><span class="govuk-visually-hidden">{{ prisoner.displayName }} - </span>Add a case note</a>
+      <a href="{{ prisonerProfileUrl }}/prisoner/{{ prisoner.prisonerNumber }}/add-case-note" class="govuk-link" data-qa="patient-add-case-note-link"><span class="govuk-visually-hidden">{{ prisoner.displayName }} - </span>Add a case note</a>
     {% endset -%}
     {% set rows = (rows.push([
       { html: prisonerImageHtml },
@@ -80,12 +80,12 @@
           { text: "" }
         ],
         rows: rows,
-        attributes: { "data-test": "patient-search-results-table", "data-module": "moj-sortable-table" }
+        attributes: { "data-qa": "patient-search-results-table", "data-module": "moj-sortable-table" }
       }) }}
     </div>
   {% else %}
     {% if not errors | length %}
-      <p class="govuk-!-padding-top-3" data-test="no-results-message">There are no results for the details you have entered.</p>
+      <p class="govuk-!-padding-top-3" data-qa="no-results-message">There are no results for the details you have entered.</p>
     {% endif %}
   {% endif %}
 {% endblock %}
