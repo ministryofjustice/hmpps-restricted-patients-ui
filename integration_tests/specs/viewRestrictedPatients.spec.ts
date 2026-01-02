@@ -74,7 +74,7 @@ test.describe('View restricted patients', () => {
     await restrictedPatientSearchPage.searchTerm.fill('A1234AA')
     await restrictedPatientSearchPage.submit.click()
 
-    expect(page.url()).toContain('/view-restricted-patients?searchTerm=A1234AA')
+    await expect(page).toHaveURL('/view-restricted-patients?searchTerm=A1234AA')
 
     const viewRestrictedPatientsPage = await ViewRestrictedPatientsPage.verifyOnPage(page)
 

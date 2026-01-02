@@ -24,7 +24,7 @@ export default class HomePage extends AbstractPage {
     this.moveToHospital = page.getByTestId('move-to-hospital')
     this.addRestrictedPatient = page.getByTestId('add-restricted-patient')
     this.removeFromRestrictedPatients = page.getByTestId('remove-from-restricted-patients')
-    this.changeSupportingPrison = page.getByTestId('change-supporting-patient')
+    this.changeSupportingPrison = page.getByTestId('change-supporting-prison')
     this.helpLink = page.getByTestId('help')
   }
 

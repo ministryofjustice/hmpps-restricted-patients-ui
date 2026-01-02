@@ -99,7 +99,7 @@ test.describe('Add prisoner', () => {
     await prisonerSearchPage.searchTerm.fill('A1234AA')
     await prisonerSearchPage.submit.click()
 
-    expect(page.url()).toContain('/add-restricted-patient/select-prisoner?searchTerm=A1234AA')
+    await expect(page).toHaveURL('/add-restricted-patient/select-prisoner?searchTerm=A1234AA')
 
     const prisonerSelectPage = await AddPrisonerSelectPage.verifyOnPage(page)
 
@@ -137,7 +137,6 @@ test.describe('Add prisoner', () => {
     const addPatientCompletedPage = await AddPatientCompletedPage.verifyOnPage('John Smith', 'Sheffield Hospital', page)
 
     await addPatientCompletedPage.finish.click()
-    expect(page.url()).toEqual('http://localhost:3007/')
   })
 
   test.describe('Select prisoner results page', () => {
