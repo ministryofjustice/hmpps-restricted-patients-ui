@@ -5,9 +5,12 @@ import AbstractPage from './abstractPage'
 export default class ErrorPage extends AbstractPage {
   readonly header: Locator
 
+  readonly continue: Locator
+
   private constructor(errorMessage: string, page: Page) {
     super(page)
     this.header = page.locator('h1', { hasText: errorMessage })
+    this.continue = page.getByTestId('continue-after-error')
   }
 
   static async verifyOnPage(errorMessage: string, page: Page): Promise<ErrorPage> {
@@ -15,6 +18,4 @@ export default class ErrorPage extends AbstractPage {
     await expect(errorPage.header).toBeVisible()
     return errorPage
   }
-
-  // continue = (): PageElement => cy.get('[data-test="continue-after-error"]')
 }
