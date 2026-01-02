@@ -17,7 +17,7 @@
     {{ govukErrorSummary({
       titleText: "There is a problem",
       errorList: errors,
-      attributes: { "data-test": "error-summary" }
+      attributes: { "data-qa": "error-summary" }
     }) }}
   {% endif %}
 
@@ -28,19 +28,19 @@
     
     <div class="horizontal-information__item">
       <h3 class="govuk-heading-s govuk-!-margin-bottom-1">Name</h3>
-      <p class="govuk-!-margin-bottom-0" data-test="prisoner-name">{{ prisoner.displayName }}</p>
+      <p class="govuk-!-margin-bottom-0" data-qa="prisoner-name">{{ prisoner.displayName }}</p>
     </div>
     <div class="horizontal-information__item">
       <h3 class="govuk-heading-s govuk-!-margin-bottom-1">Prison number</h3>
-      <p class="govuk-!-margin-bottom-0" data-test="prisoner-number">{{ prisoner.prisonerNumber }}</p>
+      <p class="govuk-!-margin-bottom-0" data-qa="prisoner-number">{{ prisoner.prisonerNumber }}</p>
     </div>
     <div class="horizontal-information__item">
       <h3 class="govuk-heading-s govuk-!-margin-bottom-1">Hospital</h3>
-      <p class="govuk-!-margin-bottom-0" data-test="prisoner-location">{{ prisoner.dischargedHospitalDescription }}</p>
+      <p class="govuk-!-margin-bottom-0" data-qa="prisoner-location">{{ prisoner.dischargedHospitalDescription }}</p>
     </div>
     <div class="horizontal-information__item">
       <h3 class="govuk-heading-s govuk-!-margin-bottom-1">Supporting prison</h3>
-      <p class="govuk-!-margin-bottom-0" data-test="prisoner-supporting-prison">{{ prisoner.supportingPrisonDescription }}</p>
+      <p class="govuk-!-margin-bottom-0" data-qa="prisoner-supporting-prison">{{ prisoner.supportingPrisonDescription }}</p>
     </div>
   </div>
 
@@ -59,7 +59,7 @@
           errorMessage: errors | findError("prison"),
           classes: "js-agency-select",
           attributes: {
-            "data-test": "select-prison-input"
+            "data-qa": "select-prison-input"
           }
         }) }}
 
@@ -68,7 +68,7 @@
           preventDoubleClick: true,
           classes: "govuk-!-margin-right-3 js-agency-submit",
           type: "submit",
-          attributes: { "data-test": "select-prison-submit" }
+          attributes: { "data-qa": "select-prison-submit" }
         }) }}
 
         {{ govukButton({
@@ -76,7 +76,7 @@
           element: 'a',
           href: '/back-to-start',
           classes: "govuk-button--secondary",
-          attributes: { "data-test": "select-prison-cancel" }
+          attributes: { "data-qa": "select-prison-cancel" }
         }) }}
       </form>
     </div>

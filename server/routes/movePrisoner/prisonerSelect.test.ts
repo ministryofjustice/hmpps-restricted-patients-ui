@@ -81,7 +81,7 @@ describe('GET /select-prisoner', () => {
           expect(res.text).toContain('1-2-015')
           expect(res.text).toContain('Controlled unlock')
           expect(res.text).toContain(
-            '<a href="/move-to-hospital/select-hospital?prisonerNumber=A1234AA&journeyStartUrl=/move-to-hospital/select-prisoner?searchTerm=Smith" class="govuk-link" data-test="prisoner-move-to-hospital-link"><span class="govuk-visually-hidden">Smith, John - </span>Move to a hospital</a>',
+            '<a href="/move-to-hospital/select-hospital?prisonerNumber=A1234AA&journeyStartUrl=/move-to-hospital/select-prisoner?searchTerm=Smith" class="govuk-link" data-qa="prisoner-move-to-hospital-link"><span class="govuk-visually-hidden">Smith, John - </span>Move to a hospital</a>',
           )
         })
     })
@@ -92,10 +92,10 @@ describe('GET /select-prisoner', () => {
         .expect('Content-Type', /html/)
         .expect(res => {
           expect(res.text).toContain(
-            `<p><span class="govuk-visually-hidden">No move link - determinate sentence past CRD - </span>Ineligible (past CRD)<br><a href="/help?section=restricted-patients-should-be-removed" class="govuk-link" data-test="help-link" target="restricted_patients_help">View Help</a></p>`,
+            `<p><span class="govuk-visually-hidden">No move link - determinate sentence past CRD - </span>Ineligible (past CRD)<br><a href="/help?section=restricted-patients-should-be-removed" class="govuk-link" data-qa="help-link" target="restricted_patients_help">View Help</a></p>`,
           )
           expect(res.text).toContain(
-            `<p><span class="govuk-visually-hidden">No move link - determinate recall past SED - </span>Ineligible (past SED)<br><a href="/help?section=restricted-patients-should-be-removed" class="govuk-link" data-test="help-link" target="restricted_patients_help">View Help</a></p>`,
+            `<p><span class="govuk-visually-hidden">No move link - determinate recall past SED - </span>Ineligible (past SED)<br><a href="/help?section=restricted-patients-should-be-removed" class="govuk-link" data-qa="help-link" target="restricted_patients_help">View Help</a></p>`,
           )
         })
     })

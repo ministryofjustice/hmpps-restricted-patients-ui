@@ -13,7 +13,7 @@
         classes: "govuk-!-margin-bottom-6"
       }) }}
 
-      <div data-test="prisoner-add-completed-help-text">
+      <div data-qa="prisoner-add-completed-help-text">
         <p class="govuk-body">{{ prisoner.friendlyName | possessive }} prison number is {{ prisoner.prisonerNumber }}.</p>
       </div>
 
@@ -22,7 +22,7 @@
         element: 'a',
         href: '/',
         classes: "govuk-button--secondary",
-        attributes: { "data-test": "prisoner-add-completed-finish" }
+        attributes: { "data-qa": "prisoner-add-completed-finish" }
       }) }}
     </div>
   </div>

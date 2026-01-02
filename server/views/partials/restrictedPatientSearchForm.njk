@@ -1,4 +1,4 @@
-<form method="POST" novalidate="novalidate" data-test="prisoner-search-form">
+<form method="POST" novalidate="novalidate" data-qa="prisoner-search-form">
   <input type="hidden" name="_csrf" value="{{ csrfToken }}" />
 
   <div class="horizontal-form govuk-!-margin-bottom-3">
@@ -11,7 +11,7 @@
       },
       classes: "govuk-!-width-full",
       attributes: {
-        'data-test': "patient-search-term-input"
+        'data-qa': "patient-search-term-input"
       },
       errorMessage: errors | findError("searchTerm")
 
@@ -21,7 +21,7 @@
       text: "Search",
       type: "submit",
       classes: "govuk-button--secondary",
-      attributes: { "data-test": "patient-search-submit" }
+      attributes: { "data-qa": "patient-search-submit" }
     }) }}
   </div>
 </form>

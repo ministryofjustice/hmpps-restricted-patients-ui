@@ -20,12 +20,12 @@ export default class HomePage extends AbstractPage {
   private constructor(page: Page) {
     super(page)
     this.header = page.locator('h1', { hasText: 'Manage restricted patients' })
-    this.searchRestrictedPatient = page.locator('[data-test="search-restricted-patient"]')
-    this.moveToHospital = page.locator('[data-test="move-to-hospital"]')
-    this.addRestrictedPatient = page.locator('[data-test="add-restricted-patient"]')
-    this.removeFromRestrictedPatients = page.locator('[data-test="remove-from-restricted-patients"]')
-    this.changeSupportingPrison = page.locator('[data-test="change-supporting-patient"]')
-    this.helpLink = page.locator('[data-test="help"]')
+    this.searchRestrictedPatient = page.getByTestId('search-restricted-patient')
+    this.moveToHospital = page.getByTestId('move-to-hospital')
+    this.addRestrictedPatient = page.getByTestId('add-restricted-patient')
+    this.removeFromRestrictedPatients = page.getByTestId('remove-from-restricted-patients')
+    this.changeSupportingPrison = page.getByTestId('change-supporting-patient')
+    this.helpLink = page.getByTestId('help')
   }
 
   static async verifyOnPage(page: Page): Promise<HomePage> {

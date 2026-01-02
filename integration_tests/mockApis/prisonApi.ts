@@ -19,7 +19,7 @@ const stubGetAgenciesByType = ({
   active = true,
 }: {
   type: string
-  response: Array<string>
+  response: Array<object>
   active: boolean
 }) =>
   stubFor({

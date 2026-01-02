@@ -21,15 +21,15 @@
     
     <div class="horizontal-information__item">
       <h3 class="govuk-heading-s govuk-!-margin-bottom-1">Name</h3>
-      <p class="govuk-!-margin-bottom-0" data-test="patient-name">{{ patient.displayName }}</p>
+      <p class="govuk-!-margin-bottom-0" data-qa="patient-name">{{ patient.displayName }}</p>
     </div>
     <div class="horizontal-information__item">
       <h3 class="govuk-heading-s govuk-!-margin-bottom-1">Prison number</h3>
-      <p class="govuk-!-margin-bottom-0" data-test="prisoner-number">{{ patient.prisonerNumber }}</p>
+      <p class="govuk-!-margin-bottom-0" data-qa="prisoner-number">{{ patient.prisonerNumber }}</p>
     </div>
     <div class="horizontal-information__item">
       <h3 class="govuk-heading-s govuk-!-margin-bottom-1">Hospital</h3>
-      <p class="govuk-!-margin-bottom-0" data-test="patient-hospital">{{ patient.hospital }}</p>
+      <p class="govuk-!-margin-bottom-0" data-qa="patient-hospital">{{ patient.hospital }}</p>
     </div>
 
     <div class="horizontal-information__item"></div>
@@ -43,7 +43,7 @@
       preventDoubleClick: true,
       classes: "govuk-!-margin-right-3",
       type: "submit",
-      attributes: { "data-test": "confirm-patient-removal-submit" }
+      attributes: { "data-qa": "confirm-patient-removal-submit" }
     }) }}
 
     {{ govukButton({
@@ -51,7 +51,7 @@
       element: 'a',
       href: '/back-to-start',
       classes: "govuk-button--secondary",
-      attributes: { "data-test": "confirm-patient-removal-cancel" }
+      attributes: { "data-qa": "confirm-patient-removal-cancel" }
     }) }}
   </form>
 {% endblock %}

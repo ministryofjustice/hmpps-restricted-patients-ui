@@ -60,7 +60,7 @@ describe('GET /view-restricted-patients', () => {
           expect(res.text).toContain('Yew Trees')
           expect(res.text).toContain('HMP Doncaster')
           expect(res.text).toContain(
-            '<a href="http://localhost:3002/prisoner/A1234AA/add-case-note" class="govuk-link" data-test="patient-add-case-note-link"><span class="govuk-visually-hidden">Smith, John - </span>Add a case note</a>',
+            '<a href="http://localhost:3002/prisoner/A1234AA/add-case-note" class="govuk-link" data-qa="patient-add-case-note-link"><span class="govuk-visually-hidden">Smith, John - </span>Add a case note</a>',
           )
         })
     })
