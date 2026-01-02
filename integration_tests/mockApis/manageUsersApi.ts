@@ -32,5 +32,5 @@ const ping = () =>
 
 export default {
   stubManageUser: stubUser,
-  stubManageUsersPing: ping,
+  stubPing: ping,
 }

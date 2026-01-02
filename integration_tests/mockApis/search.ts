@@ -1,6 +1,6 @@
 import { stubFor } from './wiremock'
 
-const stubSearchPing = (httpStatus = 200) =>
+const stubPing = (httpStatus = 200) =>
   stubFor({
     request: {
       method: 'GET',
@@ -76,7 +76,7 @@ const stubRestrictedPatientSearch = ({ results = defaultSearchResponse } = defau
   })
 
 export default {
-  stubSearchPing,
+  stubPing,
   stubSearch,
   stubRestrictedPatientSearch,
 }

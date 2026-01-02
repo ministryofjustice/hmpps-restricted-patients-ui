@@ -1,6 +1,6 @@
 import { stubFor } from './wiremock'
 
-const stubRestrictedPatientApiPing = (httpStatus = 200) =>
+const stubPing = (httpStatus = 200) =>
   stubFor({
     request: {
       method: 'GET',
@@ -13,7 +13,7 @@ const stubRestrictedPatientApiPing = (httpStatus = 200) =>
     },
   })
 
-const stubDischargeToHospital = ({ status, response = [] }) =>
+const stubDischargeToHospital = ({ status, response = [] }: { status: number; response: object }) =>
   stubFor({
     request: {
       method: 'POST',
@@ -26,7 +26,7 @@ const stubDischargeToHospital = ({ status, response = [] }) =>
     },
   })
 
-const stubMigrateToHospital = ({ status, response = [] }) =>
+const stubMigrateToHospital = ({ status, response = [] }: { status: number; response: object }) =>
   stubFor({
     request: {
       method: 'POST',
@@ -39,7 +39,15 @@ const stubMigrateToHospital = ({ status, response = [] }) =>
     },
   })
 
-const stubGetPatient = ({ prisonerNumber, status = 200, response = [] }) =>
+const stubGetPatient = ({
+  prisonerNumber,
+  status = 200,
+  response = [],
+}: {
+  prisonerNumber: string
+  status: number
+  response: object
+}) =>
   stubFor({
     request: {
       method: 'GET',
@@ -52,7 +60,15 @@ const stubGetPatient = ({ prisonerNumber, status = 200, response = [] }) =>
     },
   })
 
-const stubRemovePatient = ({ prisonerNumber, status = 200, response = {} }) =>
+const stubRemovePatient = ({
+  prisonerNumber,
+  status = 200,
+  response = {},
+}: {
+  prisonerNumber: string
+  status: number
+  response: object
+}) =>
   stubFor({
     request: {
       method: 'DELETE',
@@ -65,7 +81,7 @@ const stubRemovePatient = ({ prisonerNumber, status = 200, response = {} }) =>
     },
   })
 
-const stubChangeSupportingPrison = ({ status, response = [] }) =>
+const stubChangeSupportingPrison = ({ status, response = [] }: { status: number; response: object }) =>
   stubFor({
     request: {
       method: 'POST',
@@ -79,7 +95,7 @@ const stubChangeSupportingPrison = ({ status, response = [] }) =>
   })
 
 export default {
-  stubRestrictedPatientApiPing,
+  stubPing,
   stubDischargeToHospital,
   stubGetPatient,
   stubRemovePatient,

@@ -1,6 +1,6 @@
 import { stubFor } from './wiremock'
 
-const stubPrisonApiPing = (httpStatus = 200) =>
+const stubPing = (httpStatus = 200) =>
   stubFor({
     request: {
       method: 'GET',
@@ -13,7 +13,15 @@ const stubPrisonApiPing = (httpStatus = 200) =>
     },
   })
 
-const stubGetAgenciesByType = ({ type, response = [], active = true }) =>
+const stubGetAgenciesByType = ({
+  type,
+  response = [],
+  active = true,
+}: {
+  type: string
+  response: Array<string>
+  active: boolean
+}) =>
   stubFor({
     request: {
       method: 'GET',
@@ -26,7 +34,7 @@ const stubGetAgenciesByType = ({ type, response = [], active = true }) =>
     },
   })
 
-const stubGetAgencyDetails = ({ id, response = {} }) =>
+const stubGetAgencyDetails = ({ id, response = {} }: { id: string; response: object }) =>
   stubFor({
     request: {
       method: 'GET',
@@ -39,7 +47,7 @@ const stubGetAgencyDetails = ({ id, response = {} }) =>
     },
   })
 
-const stubGetPrisonerDetails = ({ prisonerNumber, response = {} }) =>
+const stubGetPrisonerDetails = ({ prisonerNumber, response = {} }: { prisonerNumber: string; response: object }) =>
   stubFor({
     request: {
       method: 'GET',
@@ -53,7 +61,7 @@ const stubGetPrisonerDetails = ({ prisonerNumber, response = {} }) =>
   })
 
 export default {
-  stubPrisonApiPing,
+  stubPing,
   stubGetAgenciesByType,
   stubGetAgencyDetails,
   stubGetPrisonerDetails,
