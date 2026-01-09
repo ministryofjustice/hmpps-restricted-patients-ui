@@ -61,12 +61,12 @@
     "passport-oauth2": "^1.8.0",
     "redis": "^5.10.0",
     "reflect-metadata": "^0.2.2",
-    "superagent": "^10.2.3",
+    "superagent": "^10.3.0",
     "url-value-parser": "^2.2.0"
   },
   "devDependencies": {
     "@jgoz/esbuild-plugin-typecheck": "^4.0.4",
-    "@ministryofjustice/eslint-config-hmpps": "^1.0.2",
+    "@ministryofjustice/eslint-config-hmpps": "1.0.2",
     "@ministryofjustice/hmpps-npm-script-allowlist": "0.0.3",
     "@ministryofjustice/hmpps-precommit-hooks": "^1.0.2",
     "@playwright/test": "1.57.0",
@@ -87,8 +87,8 @@
     "@types/supertest": "^6.0.3",
     "audit-ci": "^7.1.0",
     "cheerio": "^1.1.2",
-    "esbuild": "^0.27.2",
-    "esbuild-plugin-clean": "^1.0.1",
+    "del": "8.0.1",
+    "esbuild": "0.27.2",
     "esbuild-plugin-copy": "^2.1.1",
     "esbuild-plugin-manifest": "^1.0.5",
     "esbuild-sass-plugin": "^3.3.1",
@@ -98,7 +98,7 @@
     "jsonwebtoken": "^9.0.3",
     "lint-staged": "^16.2.7",
     "nock": "^14.0.10",
-    "supertest": "^7.1.4",
+    "supertest": "^7.2.2",
     "ts-jest": "^29.4.6",
     "typescript": "^5.9.3"
   }
