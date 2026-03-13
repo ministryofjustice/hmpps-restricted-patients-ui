@@ -5,13 +5,13 @@
 .autocomplete__hint,
 .autocomplete__input {
   -webkit-appearance: none;
-  border: $govuk-border-width-form-element solid $govuk-input-border-colour;
+  border: $govuk-border-width-form-element solid govuk-functional-colour(input-border);
   border-radius: 0; /* Safari 10 on iOS adds implicit border rounding. */
   box-sizing: border-box;
   -moz-box-sizing: border-box;
   -webkit-box-sizing: border-box;
   margin-bottom: 0; /* BUG: Safari 10 on macOS seems to add an implicit margin. */
-  width: 100%; 
+  width: 100%;
 }
 
 .autocomplete__input {
@@ -19,10 +19,10 @@
   position: relative;
 
   .govuk-form-group--error & {
-    border-color: $govuk-error-colour;
+    border-color: govuk-functional-colour(error);
 
     &:focus {
-      border-color: $govuk-input-border-colour;
+      border-color: govuk-functional-colour(input-border);
     }
   }
 
