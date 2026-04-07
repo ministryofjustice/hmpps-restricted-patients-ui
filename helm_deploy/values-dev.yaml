@@ -4,7 +4,7 @@ generic-service:
 
   ingress:
     host: manage-restricted-patients-dev.hmpps.service.justice.gov.uk
-    className: "default-non-prod"
+    className: modsec-non-prod
 
   scheduledDowntime:
     enabled: true
