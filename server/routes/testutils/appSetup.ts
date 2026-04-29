@@ -43,6 +43,12 @@ function appSetup(
     req.flash = flashProvider
     res.locals = {
       user: { ...req.user } as PrisonUser,
+      cspNonce: '',
+      csrfToken: '',
+      asset_path: '',
+      applicationName: '',
+      environmentName: '',
+      environmentNameColour: '',
     }
     Object.entries(session).forEach(([key, value]) => {
       // @ts-expect-error assignment of any type ignored
@@ -50,14 +56,14 @@ function appSetup(
     })
     next()
   })
-  app.use((req, res, next) => {
+  app.use((req, _res, next) => {
     req.id = randomUUID()
     next()
   })
   app.use(express.json())
   app.use(express.urlencoded({ extended: true }))
   app.use(routes(services))
-  app.use((req, res, next) => next(new NotFound()))
+  app.use((_req, _res, next) => next(new NotFound()))
   app.use(errorHandler(production))
 
   return app

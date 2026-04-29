@@ -8,7 +8,7 @@ import { PrisonUser } from '../interfaces/hmppsUser'
 export default function setUpCurrentUser({ userService }: Services): Router {
   const router = express.Router()
 
-  router.use(async (req, res, next) => {
+  router.use(async (_req, res, next) => {
     try {
       const {
         name,
