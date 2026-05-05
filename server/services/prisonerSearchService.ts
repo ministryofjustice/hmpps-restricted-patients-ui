@@ -1,6 +1,10 @@
 import { Readable } from 'stream'
 import { asSystem } from '@ministryofjustice/hmpps-rest-client'
-import { AlertFlagLabel, getAlertFlagLabelsForAlerts } from '@ministryofjustice/hmpps-connect-dps-shared-items'
+import {
+  AlertFlagLabel,
+  getAlertFlagLabelsForAlerts,
+  PrisonApiAlert,
+} from '@ministryofjustice/hmpps-connect-dps-shared-items'
 
 import type { PrisonerSearchByName, PrisonerSearchByPrisonerNumber } from '../data/prisonerSearchClient'
 import PrisonerSearchClient from '../data/prisonerSearchClient'
@@ -8,10 +12,10 @@ import PrisonApiClient from '../data/prisonApiClient'
 import PrisonerSearchResult from '../data/prisonerSearchResult'
 
 import { convertToTitleCase } from '../utils/utils'
-import PrisonerResult from '../data/prisonerResult'
 import type { SearchStatus } from '../routes/searchPatients/restrictedPatientSearchFilter'
 
 import { Context } from './context'
+import { PrisonerResult } from '../@types/prison-api/prisonApiTypes'
 
 export interface PrisonerSearchSummary extends PrisonerSearchResult {
   displayName: string
@@ -53,7 +57,7 @@ export default class PrisonerSearchService {
   private static enhancePrisoner(prisoner: PrisonerSearchResult | PrisonerResult) {
     return {
       displayName: convertToTitleCase(`${prisoner.lastName}, ${prisoner.firstName}`),
-      formattedAlerts: getAlertFlagLabelsForAlerts(prisoner.alerts),
+      formattedAlerts: getAlertFlagLabelsForAlerts(prisoner.alerts as PrisonApiAlert[]),
     }
   }
 

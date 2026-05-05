@@ -3,9 +3,10 @@ import 'reflect-metadata'
 import RestrictedPatientSearchService from './restrictedPatientSearchService'
 import PrisonerSearchClient from '../data/prisonerSearchClient'
 import RestrictedPatientSearchResult from '../data/restrictedPatientSearchResult'
-import PrisonApiClient, { Agency } from '../data/prisonApiClient'
+import PrisonApiClient from '../data/prisonApiClient'
 
 import { Context } from './context'
+import { Agency } from '../@types/prison-api/prisonApiTypes'
 
 jest.mock('../data/prisonerSearchClient')
 jest.mock('../data/prisonApiClient')
@@ -26,14 +27,12 @@ describe('restrictedPatientSearchService', () => {
       {
         agencyId: 'MDI',
         description: 'Moorland',
-        longDescription: 'HMP Moorland',
         agencyType: 'INST',
         active: true,
       } as Agency,
       {
         agencyId: 'LEI',
         description: 'Leeds',
-        longDescription: 'HMP Leeds',
         agencyType: 'INST',
         active: true,
       } as Agency,

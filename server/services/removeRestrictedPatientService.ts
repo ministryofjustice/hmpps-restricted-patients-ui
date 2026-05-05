@@ -6,7 +6,7 @@ import { convertToTitleCase } from '../utils/utils'
 
 import { Context } from './context'
 import { RestrictedPatientDto } from '../@types/restricted-patients/restrictedPatientsApiTypes'
-import PrisonerResult from '../data/prisonerResult'
+import { PrisonerResult } from '../@types/prison-api/prisonApiTypes'
 
 export interface RestrictedPatientDetails {
   displayName: string

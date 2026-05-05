@@ -1,17 +1,9 @@
-import { plainToClass } from 'class-transformer'
 import type { Readable } from 'stream'
 import { ApiConfig, AuthOptions, AuthenticationClient, RestClient } from '@ministryofjustice/hmpps-rest-client'
 
 import config from '../config'
 import logger from '../../logger'
-import PrisonerResult from './prisonerResult'
-
-export interface Agency {
-  agencyId: string
-  description: string
-  agencyType: string
-  active: boolean
-}
+import { Agency, PrisonerResult } from '../@types/prison-api/prisonApiTypes'
 
 export default class PrisonApiClient extends RestClient {
   constructor(authenticationClient: AuthenticationClient) {
@@ -53,13 +45,11 @@ export default class PrisonApiClient extends RestClient {
   }
 
   async getPrisonerDetails(prisonerNumber: string, authOptions: AuthOptions): Promise<PrisonerResult> {
-    const result = await this.get<PrisonerResult>(
+    return this.get<PrisonerResult>(
       {
         path: `/api/offenders/${prisonerNumber}`,
       },
       authOptions,
     )
-
-    return plainToClass(PrisonerResult, result, { excludeExtraneousValues: true })
   }
 }

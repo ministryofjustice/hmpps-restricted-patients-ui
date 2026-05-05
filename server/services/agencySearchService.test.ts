@@ -1,7 +1,8 @@
 import AgencySearchService from './agencySearchService'
-import PrisonApiClient, { Agency } from '../data/prisonApiClient'
+import PrisonApiClient from '../data/prisonApiClient'
 
 import { Context } from './context'
+import { Agency } from '../@types/prison-api/prisonApiTypes'
 
 jest.mock('../data/prisonApiClient')
 
@@ -30,15 +31,13 @@ describe('agencySearchService', () => {
           {
             agencyId: 'SHEFF',
             description: 'Sheffield Hospital',
-            longDescription: 'Sheffield Teaching Hospital',
-            agencyType: 'HOSP',
+            agencyType: 'HOSPITAL',
             active: true,
           } as Agency,
           {
             agencyId: 'BURNLY',
             description: 'Burnley Hospital',
-            longDescription: 'Burnley Teaching Hospital',
-            agencyType: 'HOSP',
+            agencyType: 'HOSPITAL',
             active: false,
           } as Agency,
         ])
@@ -46,7 +45,6 @@ describe('agencySearchService', () => {
           {
             agencyId: 'ROTH',
             description: 'Rotherham Hospital',
-            longDescription: 'Rotherham General Hospital',
             agencyType: 'HSHOSP',
             active: true,
           } as Agency,
@@ -70,14 +68,12 @@ describe('agencySearchService', () => {
           agencyId: 'ROTH',
           agencyType: 'HSHOSP',
           description: 'Rotherham Hospital',
-          longDescription: 'Rotherham General Hospital',
         },
         {
           active: true,
           agencyId: 'SHEFF',
-          agencyType: 'HOSP',
+          agencyType: 'HOSPITAL',
           description: 'Sheffield Hospital',
-          longDescription: 'Sheffield Teaching Hospital',
         },
       ])
     })
@@ -89,17 +85,15 @@ describe('agencySearchService', () => {
         {
           agencyId: 'MDI',
           description: 'Moorland',
-          longDescription: 'HMP Moorland',
           agencyType: 'INST',
           active: true,
         } as Agency,
         {
           agencyId: 'DNI',
           description: 'Doncaster',
-          longDescription: 'HMP Doncaster',
           agencyType: 'INST',
           active: false,
-        } as unknown as Agency,
+        } as Agency,
       ])
     })
 
@@ -116,7 +110,6 @@ describe('agencySearchService', () => {
           agencyId: 'MDI',
           agencyType: 'INST',
           description: 'Moorland',
-          longDescription: 'HMP Moorland',
         },
       ])
     })
@@ -127,8 +120,7 @@ describe('agencySearchService', () => {
       prisonApiClient.getAgencyDetails.mockResolvedValue({
         agencyId: 'SHEFF',
         description: 'Sheffield Hospital',
-        longDescription: 'Sheffield Teaching Hospital',
-        agencyType: 'HOSP',
+        agencyType: 'HOSPITAL',
         active: true,
       } as Agency)
     })
@@ -143,9 +135,8 @@ describe('agencySearchService', () => {
       expect(results).toStrictEqual({
         active: true,
         agencyId: 'SHEFF',
-        agencyType: 'HOSP',
+        agencyType: 'HOSPITAL',
         description: 'Sheffield Hospital',
-        longDescription: 'Sheffield Teaching Hospital',
       })
     })
   })

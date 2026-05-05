@@ -74,7 +74,7 @@ describe('prisonApiClient', () => {
 
       const response = await client.getPrisonerDetails('A1234AA', asUser(token))
 
-      expect(response).toEqual({
+      expect(response).toMatchObject({
         offenderNo: 'A1234AA',
         firstName: 'JOHN',
         lastName: 'SMITH',

@@ -2,32 +2,21 @@ import { asSystem, asUser, RestClient } from '@ministryofjustice/hmpps-rest-clie
 import { AuthenticationClient } from '@ministryofjustice/hmpps-auth-clients'
 
 import config from '../config'
-import { RestrictedPatientDto } from '../@types/restricted-patients/restrictedPatientsApiTypes'
+import {
+  DischargeToHospitalRequest,
+  MigrateInRequest,
+  RestrictedPatientDto,
+  SupportingPrisonRequest,
+} from '../@types/restricted-patients/restrictedPatientsApiTypes'
 import logger from '../../logger'
-
-export interface RestrictedPatientDischargeToHospitalRequest {
-  offenderNo: string
-  commentText?: string
-  fromLocationId: string
-  hospitalLocationCode: string
-  supportingPrisonId?: string
-}
-export interface RestrictedPatientAddRequest {
-  offenderNo: string
-  hospitalLocationCode: string
-}
-export interface ChangeSupportingPrisonRequest {
-  offenderNo: string
-  supportingPrisonId: string
-}
 
 export default class RestrictedPatientApiClient extends RestClient {
   constructor(authenticationClient: AuthenticationClient) {
     super('Restricted Patient', config.apis.restrictedPatientApi, logger, authenticationClient)
   }
 
-  async dischargePatient(searchRequest: RestrictedPatientDischargeToHospitalRequest, token: string): Promise<unknown> {
-    return this.post<RestrictedPatientDischargeToHospitalRequest>(
+  async dischargePatient(searchRequest: DischargeToHospitalRequest, token: string): Promise<unknown> {
+    return this.post<DischargeToHospitalRequest>(
       {
         path: `/discharge-to-hospital`,
         data: { ...searchRequest },
@@ -36,8 +25,8 @@ export default class RestrictedPatientApiClient extends RestClient {
     )
   }
 
-  async migratePatient(searchRequest: RestrictedPatientAddRequest, token: string): Promise<unknown> {
-    return this.post<RestrictedPatientAddRequest>(
+  async migratePatient(searchRequest: MigrateInRequest, token: string): Promise<unknown> {
+    return this.post<MigrateInRequest>(
       {
         path: `/migrate-in-restricted-patient`,
         data: { ...searchRequest },
@@ -64,11 +53,11 @@ export default class RestrictedPatientApiClient extends RestClient {
     )
   }
 
-  async changeSupportingPrison(searchRequest: ChangeSupportingPrisonRequest, token: string): Promise<unknown> {
-    return this.post<ChangeSupportingPrisonRequest>(
+  async changeSupportingPrison(searchRequest: SupportingPrisonRequest, token: string): Promise<unknown> {
+    return this.post<SupportingPrisonRequest>(
       {
-        path: `/change-supporting-prison`,
         data: { ...searchRequest },
+        path: `/change-supporting-prison`,
       },
       asUser(token),
     )

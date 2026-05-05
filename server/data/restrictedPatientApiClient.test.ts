@@ -2,10 +2,8 @@ import nock from 'nock'
 import { AuthenticationClient } from '@ministryofjustice/hmpps-auth-clients'
 
 import config from '../config'
-import RestrictedPatientApiClient, {
-  RestrictedPatientAddRequest,
-  RestrictedPatientDischargeToHospitalRequest,
-} from './restrictedPatientApiClient'
+import RestrictedPatientApiClient from './restrictedPatientApiClient'
+import { DischargeToHospitalRequest, MigrateInRequest } from '../@types/restricted-patients/restrictedPatientsApiTypes'
 
 describe('restrictedPatientApiClient', () => {
   let fakeRestrictedPatientApi: nock.Scope
@@ -16,16 +14,16 @@ describe('restrictedPatientApiClient', () => {
 
   const dischargeToHospitalRequest = {
     offenderNo: 'A1234AA',
-    dischargeTime: new Date('2019-05-14T11:01:58.135Z'),
+    dischargeTime: '2019-05-14T11:01:58.135Z',
     fromLocationId: 'MDI',
     hospitalLocationCode: 'SHEFF',
     supportingPrisonId: 'MDI',
-  } as RestrictedPatientDischargeToHospitalRequest
+  } as DischargeToHospitalRequest
 
   const migrateToHospitalRequest = {
     offenderNo: 'A1234AA',
     hospitalLocationCode: 'SHEFF',
-  } as RestrictedPatientAddRequest
+  } as MigrateInRequest
 
   beforeEach(() => {
     fakeRestrictedPatientApi = nock(config.apis.restrictedPatientApi.url)

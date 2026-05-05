@@ -1,7 +1,7 @@
 import { Request, Response } from 'express'
 import PrisonerSearchService, { PrisonerResultSummary } from '../../services/prisonerSearchService'
 import AgencySearchService from '../../services/agencySearchService'
-import { Agency } from '../../data/prisonApiClient'
+import { Agency } from '../../@types/prison-api/prisonApiTypes'
 
 export default class ChangePrisonCompletedRoutes {
   constructor(

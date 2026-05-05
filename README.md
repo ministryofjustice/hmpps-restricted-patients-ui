@@ -70,4 +70,5 @@ that specification.
 ### Import types from API
 ```
 npx openapi-typescript https://restricted-patients-api-dev.hmpps.service.justice.gov.uk/v3/api-docs > ./server/@types/restricted-patients/index.d.ts
+npx openapi-typescript https://prison-api-dev.prison.service.justice.gov.uk/v3/api-docs > ./server/@types/prison-api/index.d.ts
 ```

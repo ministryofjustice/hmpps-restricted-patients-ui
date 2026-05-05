@@ -3,8 +3,8 @@ import request from 'supertest'
 import { appWithAllRoutes, mockJwtDecode } from '../testutils/appSetup'
 import PrisonerSearchService, { PrisonerResultSummary } from '../../services/prisonerSearchService'
 import AgencySearchService from '../../services/agencySearchService'
-import { Agency } from '../../data/prisonApiClient'
 import MovePrisonerService from '../../services/movePrisonerService'
+import { Agency } from '../../@types/prison-api/prisonApiTypes'
 
 jest.mock('../../services/prisonerSearchService')
 jest.mock('../../services/movePrisonerService')
@@ -26,7 +26,6 @@ beforeEach(() => {
   agencySearchService.getAgency.mockResolvedValue({
     agencyId: 'MDI',
     description: 'Moorland',
-    longDescription: 'HMP Moorland',
     agencyType: 'INST',
     active: true,
   } as Agency)
