@@ -8,6 +8,7 @@
     "noEmit": true,
     "allowJs": false,
     "strict": false,
+    "noUnusedParameters": true,
     "resolveJsonModule": true,
     "allowSyntheticDefaultImports": true,
     "noImplicitAny": true,

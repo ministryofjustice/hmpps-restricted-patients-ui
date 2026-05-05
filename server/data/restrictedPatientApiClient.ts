@@ -1,9 +1,8 @@
-import { plainToClass } from 'class-transformer'
 import { asSystem, asUser, RestClient } from '@ministryofjustice/hmpps-rest-client'
 import { AuthenticationClient } from '@ministryofjustice/hmpps-auth-clients'
 
 import config from '../config'
-import RestrictedPatientResult from './restrictedPatientResult'
+import { RestrictedPatientDto } from '../@types/restricted-patients/restrictedPatientsApiTypes'
 import logger from '../../logger'
 
 export interface RestrictedPatientDischargeToHospitalRequest {
@@ -47,15 +46,13 @@ export default class RestrictedPatientApiClient extends RestClient {
     )
   }
 
-  async getPatient(prisonerNumber: string, token: string): Promise<RestrictedPatientResult> {
-    const response = await this.get<RestrictedPatientResult>(
+  async getPatient(prisonerNumber: string, token: string): Promise<RestrictedPatientDto> {
+    return this.get<RestrictedPatientDto>(
       {
         path: `/restricted-patient/prison-number/${prisonerNumber}`,
       },
       asUser(token),
     )
-
-    return plainToClass(RestrictedPatientResult, response, { excludeExtraneousValues: true })
   }
 
   async removePatient(prisonerNumber: string, username: string): Promise<Record<string, unknown>> {

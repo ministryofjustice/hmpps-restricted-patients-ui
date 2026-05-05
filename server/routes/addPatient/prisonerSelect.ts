@@ -13,7 +13,7 @@ export default class PrisonerSelectRoutes {
 
   private searchFilter = new RestrictedPatientSearchFilter()
 
-  private renderView = async (req: Request, res: Response, pageData: PageData): Promise<void> => {
+  private renderView = async (_req: Request, res: Response, pageData: PageData): Promise<void> => {
     const { error, searchResults } = pageData
 
     return res.render('pages/addPatient/releasedPrisonerSelect', {

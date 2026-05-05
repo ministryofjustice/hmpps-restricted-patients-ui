@@ -66,3 +66,8 @@ Or run tests with the UI:
 
 This will open up playwright and show all the specs.  Clicking on one of the specs will fire up chrome and run the tests in
 that specification.
+
+### Import types from API
+```
+npx openapi-typescript https://restricted-patients-api-dev.hmpps.service.justice.gov.uk/v3/api-docs > ./server/@types/restricted-patients/index.d.ts
+```

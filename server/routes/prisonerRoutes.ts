@@ -9,7 +9,7 @@ export default function prisonerRoutes({
 }): Router {
   const router = express.Router()
 
-  router.get('/:prisonerNumber/image', async (req, res, next) => {
+  router.get('/:prisonerNumber/image', async (req, res) => {
     prisonerSearchService
       .getPrisonerImage(req.params.prisonerNumber, res.locals.user)
       .then(data => {
