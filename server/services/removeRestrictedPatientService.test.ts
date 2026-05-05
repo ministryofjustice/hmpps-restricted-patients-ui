@@ -1,10 +1,10 @@
 import RemoveRestrictedPatientService, { RestrictedPatientDetails } from './removeRestrictedPatientService'
 import RestrictedPatientApiClient from '../data/restrictedPatientApiClient'
 import PrisonApiClient from '../data/prisonApiClient'
-import PrisonerResult from '../data/prisonerResult'
 import { RestrictedPatientDto } from '../@types/restricted-patients/restrictedPatientsApiTypes'
 
 import { Context } from './context'
+import { PrisonerResult } from '../@types/prison-api/prisonApiTypes'
 
 jest.mock('../data/restrictedPatientApiClient')
 jest.mock('../data/prisonApiClient')

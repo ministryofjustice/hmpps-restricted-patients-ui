@@ -1,7 +1,8 @@
 import { asUser } from '@ministryofjustice/hmpps-rest-client'
 
-import PrisonApiClient, { Agency } from '../data/prisonApiClient'
+import PrisonApiClient from '../data/prisonApiClient'
 import { Context } from './context'
+import { Agency } from '../@types/prison-api/prisonApiTypes'
 
 export default class AgencySearchService {
   constructor(private readonly client: PrisonApiClient) {}

@@ -5,11 +5,12 @@ import RestrictedPatientSearchResult from '../data/restrictedPatientSearchResult
 import { convertToTitleCase } from '../utils/utils'
 
 import { Context } from './context'
-import PrisonApiClient, { Agency } from '../data/prisonApiClient'
+import PrisonApiClient from '../data/prisonApiClient'
 import PrisonerSearchClient, {
   RestrictedPatientSearchByName,
   RestrictedPatientSearchByPrisonerNumber,
 } from '../data/prisonerSearchClient'
+import { Agency } from '../@types/prison-api/prisonApiTypes'
 
 export interface RestrictedPatientSearchSummary extends RestrictedPatientSearchResult {
   displayName: string

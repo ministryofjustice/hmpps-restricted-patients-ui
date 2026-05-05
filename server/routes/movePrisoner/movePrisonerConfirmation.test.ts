@@ -4,7 +4,7 @@ import { appWithAllRoutes, mockJwtDecode } from '../testutils/appSetup'
 import PrisonerSearchService, { PrisonerResultSummary } from '../../services/prisonerSearchService'
 import MovePrisonerService from '../../services/movePrisonerService'
 import AgencySearchService from '../../services/agencySearchService'
-import { Agency } from '../../data/prisonApiClient'
+import { Agency } from '../../@types/prison-api/prisonApiTypes'
 
 jest.mock('../../services/prisonerSearchService')
 jest.mock('../../services/movePrisonerService')
@@ -26,8 +26,7 @@ beforeEach(() => {
   agencySearchService.getAgency.mockResolvedValue({
     agencyId: 'SHEFF',
     description: 'Sheffield Hospital',
-    longDescription: 'Sheffield Teaching Hospital',
-    agencyType: 'HOSP',
+    agencyType: 'HOSPITAL',
     active: true,
   } as Agency)
   prisonerSearchService.getPrisonerDetails.mockResolvedValue({

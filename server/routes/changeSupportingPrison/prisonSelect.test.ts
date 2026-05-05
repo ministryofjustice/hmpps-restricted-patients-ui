@@ -4,8 +4,8 @@ import { appWithAllRoutes, mockJwtDecode } from '../testutils/appSetup'
 import RestrictedPatientSearchService, {
   RestrictedPatientSearchSummary,
 } from '../../services/restrictedPatientSearchService'
-import { Agency } from '../../data/prisonApiClient'
 import AgencySearchService from '../../services/agencySearchService'
+import { Agency } from '../../@types/prison-api/prisonApiTypes'
 
 jest.mock('../../services/restrictedPatientSearchService')
 jest.mock('../../services/agencySearchService')
@@ -29,7 +29,6 @@ beforeEach(() => {
     {
       agencyId: 'MDI',
       description: 'Moorland',
-      longDescription: 'HMP Moorland',
       agencyType: 'INST',
       active: true,
     } as Agency,

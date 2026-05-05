@@ -6,8 +6,8 @@ import PrisonerSearchClient from '../data/prisonerSearchClient'
 import PrisonApiClient from '../data/prisonApiClient'
 
 import { Context } from './context'
-import PrisonerResult from '../data/prisonerResult'
 import PrisonerSearchResult from '../data/prisonerSearchResult'
+import { PrisonerResult } from '../@types/prison-api/prisonApiTypes'
 
 jest.mock('../data/prisonerSearchClient')
 jest.mock('../data/prisonApiClient')

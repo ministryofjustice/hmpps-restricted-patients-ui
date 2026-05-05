@@ -3,11 +3,11 @@ import { FormError } from '../../@types/template'
 import validateMovePrisonerForm from './prisonSelectValidation'
 import { addSelect, convertToTitleCase } from '../../utils/utils'
 import AgencySearchService from '../../services/agencySearchService'
-import { Agency } from '../../data/prisonApiClient'
 import logger from '../../../logger'
 import RestrictedPatientSearchService, {
   RestrictedPatientSearchSummary,
 } from '../../services/restrictedPatientSearchService'
+import { Agency } from '../../@types/prison-api/prisonApiTypes'
 
 type PageData = {
   error?: FormError
