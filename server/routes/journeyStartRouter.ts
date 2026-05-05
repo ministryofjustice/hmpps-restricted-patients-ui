@@ -3,7 +3,7 @@ import { Router } from 'express'
 export default function journeyStartRouter(): Router {
   const router = Router({ mergeParams: true })
 
-  router.use((req, res, next) => {
+  router.use((req, _res, next) => {
     if (req.query?.journeyStartUrl) req.session.journeyStartUrl = req.query.journeyStartUrl
     next()
   })

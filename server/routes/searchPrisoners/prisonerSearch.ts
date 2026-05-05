@@ -8,7 +8,7 @@ export default class PrisonerSearchRoutes {
     private readonly page: string,
   ) {}
 
-  private renderView = async (req: Request, res: Response, error?: FormError): Promise<void> =>
+  private renderView = async (_req: Request, res: Response, error?: FormError): Promise<void> =>
     res.render(this.page, {
       errors: error ? [error] : [],
     })

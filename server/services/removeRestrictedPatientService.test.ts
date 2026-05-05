@@ -2,7 +2,7 @@ import RemoveRestrictedPatientService, { RestrictedPatientDetails } from './remo
 import RestrictedPatientApiClient from '../data/restrictedPatientApiClient'
 import PrisonApiClient from '../data/prisonApiClient'
 import PrisonerResult from '../data/prisonerResult'
-import RestrictedPatientResult from '../data/restrictedPatientResult'
+import { RestrictedPatientDto } from '../@types/restricted-patients/restrictedPatientsApiTypes'
 
 import { Context } from './context'
 
@@ -48,7 +48,7 @@ describe('removeRestrictedPatientService', () => {
 
       restrictedPatientApiClient.getPatient.mockResolvedValue({
         hospitalLocation: { description: 'Sheffield Hospital' },
-      } as RestrictedPatientResult)
+      } as RestrictedPatientDto)
 
       const response = await service.getRestrictedPatient('A1234AA', user)
 

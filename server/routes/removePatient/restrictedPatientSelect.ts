@@ -14,7 +14,7 @@ type PageData = {
 export default class RestrictedPatientSelectRoutes {
   constructor(private readonly restrictedPatientSearchService: RestrictedPatientSearchService) {}
 
-  private renderView = async (req: Request, res: Response, pageData: PageData): Promise<void> => {
+  private renderView = async (_req: Request, res: Response, pageData: PageData): Promise<void> => {
     const { error, searchResults, searchTerm } = pageData
 
     return res.render('pages/removeRestrictedPatient/patientSelect', {

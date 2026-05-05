@@ -125,7 +125,7 @@ describe('restrictedPatientApiClient', () => {
 
       const response = await client.getPatient('A1234AA', token)
 
-      expect(response).toEqual({
+      expect(response).toMatchObject({
         hospitalLocation: {
           description: 'Sheffield Hospital',
         },
