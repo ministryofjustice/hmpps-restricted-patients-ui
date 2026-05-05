@@ -2,11 +2,11 @@ import 'reflect-metadata'
 
 import RestrictedPatientSearchService from './restrictedPatientSearchService'
 import PrisonerSearchClient from '../data/prisonerSearchClient'
-import RestrictedPatientSearchResult from '../data/restrictedPatientSearchResult'
 import PrisonApiClient from '../data/prisonApiClient'
 
 import { Context } from './context'
 import { Agency } from '../@types/prison-api/prisonApiTypes'
+import { RestrictedPatientSearchResult } from '../@types/prisoner-search/prisonerSearchTypes'
 
 jest.mock('../data/prisonerSearchClient')
 jest.mock('../data/prisonApiClient')

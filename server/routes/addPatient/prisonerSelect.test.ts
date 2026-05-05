@@ -71,7 +71,7 @@ describe('GET /select-prisoner', () => {
           indeterminateSentence: false,
           recall: false,
           conditionalReleaseDate: new Date(new Date().getDate() - 1),
-        } as PrisonerSearchSummary,
+        } as unknown as PrisonerSearchSummary,
         {
           alerts: [],
           locationDescription: 'Outside - released from Doncaster - discharged to NGH',
@@ -84,7 +84,7 @@ describe('GET /select-prisoner', () => {
           indeterminateSentence: false,
           recall: true,
           sentenceExpiryDate: new Date(new Date().getDate() - 1),
-        } as PrisonerSearchSummary,
+        } as unknown as PrisonerSearchSummary,
         {
           alerts: [],
           locationDescription: 'Outside - released from Doncaster - discharged to NGH',

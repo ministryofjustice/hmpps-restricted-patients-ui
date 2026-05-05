@@ -18,7 +18,7 @@ describe('restrictedPatientSearchFilter', () => {
         recall: false,
         indeterminateSentence: false,
         conditionalReleaseDate: yesterday,
-      } as PrisonerSearchSummary
+      } as unknown as PrisonerSearchSummary
 
       expect(searchFilter.includePrisonerToMove(prisoner)).toEqual(SearchStatus.EXCLUDE_POST_CRD)
     })
@@ -28,7 +28,7 @@ describe('restrictedPatientSearchFilter', () => {
         recall: false,
         indeterminateSentence: false,
         conditionalReleaseDate: tomorrow,
-      } as PrisonerSearchSummary
+      } as unknown as PrisonerSearchSummary
 
       expect(searchFilter.includePrisonerToMove(prisoner)).toEqual(SearchStatus.INCLUDE)
     })
@@ -39,7 +39,7 @@ describe('restrictedPatientSearchFilter', () => {
         sentenceExpiryDate: yesterday,
         indeterminateSentence: false,
         conditionalReleaseDate: yesterday,
-      } as PrisonerSearchSummary
+      } as unknown as PrisonerSearchSummary
 
       expect(searchFilter.includePrisonerToMove(prisoner)).toEqual(SearchStatus.EXCLUDE_POST_SED)
     })
@@ -50,7 +50,7 @@ describe('restrictedPatientSearchFilter', () => {
         sentenceExpiryDate: tomorrow,
         indeterminateSentence: false,
         conditionalReleaseDate: yesterday,
-      } as PrisonerSearchSummary
+      } as unknown as PrisonerSearchSummary
 
       expect(searchFilter.includePrisonerToMove(prisoner)).toEqual(SearchStatus.INCLUDE)
     })
@@ -93,7 +93,7 @@ describe('restrictedPatientSearchFilter', () => {
         recall: false,
         indeterminateSentence: false,
         conditionalReleaseDate: yesterday,
-      } as PrisonerSearchSummary
+      } as unknown as PrisonerSearchSummary
 
       expect(searchFilter.includePrisonerToAdd(prisoner)).toEqual(SearchStatus.EXCLUDE_POST_CRD)
     })
@@ -106,7 +106,7 @@ describe('restrictedPatientSearchFilter', () => {
         recall: false,
         indeterminateSentence: false,
         conditionalReleaseDate: tomorrow,
-      } as PrisonerSearchSummary
+      } as unknown as PrisonerSearchSummary
 
       expect(searchFilter.includePrisonerToAdd(prisoner)).toEqual(SearchStatus.INCLUDE)
     })
@@ -120,7 +120,7 @@ describe('restrictedPatientSearchFilter', () => {
         sentenceExpiryDate: yesterday,
         indeterminateSentence: false,
         conditionalReleaseDate: yesterday,
-      } as PrisonerSearchSummary
+      } as unknown as PrisonerSearchSummary
 
       expect(searchFilter.includePrisonerToAdd(prisoner)).toEqual(SearchStatus.EXCLUDE_POST_SED)
     })
@@ -134,7 +134,7 @@ describe('restrictedPatientSearchFilter', () => {
         sentenceExpiryDate: tomorrow,
         indeterminateSentence: false,
         conditionalReleaseDate: yesterday,
-      } as PrisonerSearchSummary
+      } as unknown as PrisonerSearchSummary
 
       expect(searchFilter.includePrisonerToAdd(prisoner)).toEqual(SearchStatus.INCLUDE)
     })

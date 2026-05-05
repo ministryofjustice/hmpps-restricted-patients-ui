@@ -9,13 +9,13 @@ import {
 import type { PrisonerSearchByName, PrisonerSearchByPrisonerNumber } from '../data/prisonerSearchClient'
 import PrisonerSearchClient from '../data/prisonerSearchClient'
 import PrisonApiClient from '../data/prisonApiClient'
-import PrisonerSearchResult from '../data/prisonerSearchResult'
 
 import { convertToTitleCase } from '../utils/utils'
 import type { SearchStatus } from '../routes/searchPatients/restrictedPatientSearchFilter'
 
 import { Context } from './context'
 import { PrisonerResult } from '../@types/prison-api/prisonApiTypes'
+import { PrisonerSearchResult } from '../@types/prisoner-search/prisonerSearchTypes'
 
 export interface PrisonerSearchSummary extends PrisonerSearchResult {
   displayName: string

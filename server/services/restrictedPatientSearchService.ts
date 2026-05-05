@@ -1,7 +1,5 @@
 import { asUser } from '@ministryofjustice/hmpps-rest-client'
 
-import RestrictedPatientSearchResult from '../data/restrictedPatientSearchResult'
-
 import { convertToTitleCase } from '../utils/utils'
 
 import { Context } from './context'
@@ -11,6 +9,7 @@ import PrisonerSearchClient, {
   RestrictedPatientSearchByPrisonerNumber,
 } from '../data/prisonerSearchClient'
 import { Agency } from '../@types/prison-api/prisonApiTypes'
+import { RestrictedPatientSearchResult } from '../@types/prisoner-search/prisonerSearchTypes'
 
 export interface RestrictedPatientSearchSummary extends RestrictedPatientSearchResult {
   displayName: string
