@@ -13,9 +13,9 @@ import PrisonApiClient from '../data/prisonApiClient'
 import { convertToTitleCase } from '../utils/utils'
 import type { SearchStatus } from '../routes/searchPatients/restrictedPatientSearchFilter'
 
-import { Context } from './context'
 import { PrisonerResult } from '../@types/prison-api/prisonApiTypes'
 import { PrisonerSearchResult } from '../@types/prisoner-search/prisonerSearchTypes'
+import { PrisonUser } from '../interfaces/hmppsUser'
 
 export interface PrisonerSearchSummary extends PrisonerSearchResult {
   displayName: string
@@ -28,7 +28,7 @@ export interface PrisonerResultSummary extends PrisonerResult {
   displayName: string
   formattedAlerts: AlertFlagLabel[]
   friendlyName: string
-  prisonerNumber: string
+  prisonerNumber?: string
 }
 
 // Anything with a number is considered not to be a name, so therefore an identifier (prison no, PNC no etc.)
@@ -61,7 +61,7 @@ export default class PrisonerSearchService {
     }
   }
 
-  async search(search: PrisonerSearch, user: Context): Promise<PrisonerSearchSummary[]> {
+  async search(search: PrisonerSearch, user: PrisonUser): Promise<PrisonerSearchSummary[]> {
     const searchTerm = search.searchTerm.replace(/,/g, ' ').replace(/\s\s+/g, ' ').trim()
     const { prisonIds } = search
 
@@ -83,11 +83,11 @@ export default class PrisonerSearchService {
     )
   }
 
-  async getPrisonerImage(prisonerNumber: string, user: Context): Promise<Readable> {
+  async getPrisonerImage(prisonerNumber: string, user: PrisonUser): Promise<Readable> {
     return this.prisonApiClient.getPrisonerImage(prisonerNumber, asSystem(user.username))
   }
 
-  async getPrisonerDetails(prisonerNumber: string, user: Context): Promise<PrisonerResultSummary> {
+  async getPrisonerDetails(prisonerNumber: string, user: PrisonUser): Promise<PrisonerResultSummary> {
     const prisoner = await this.prisonApiClient.getPrisonerDetails(prisonerNumber, asSystem(user.username))
 
     return {

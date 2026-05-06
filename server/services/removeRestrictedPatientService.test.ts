@@ -1,21 +1,24 @@
+import { AuthenticationClient } from '@ministryofjustice/hmpps-auth-clients'
 import RemoveRestrictedPatientService, { RestrictedPatientDetails } from './removeRestrictedPatientService'
 import RestrictedPatientApiClient from '../data/restrictedPatientApiClient'
 import PrisonApiClient from '../data/prisonApiClient'
 import { RestrictedPatientDto } from '../@types/restricted-patients/restrictedPatientsApiTypes'
 
-import { Context } from './context'
 import { PrisonerResult } from '../@types/prison-api/prisonApiTypes'
+import { PrisonUser } from '../interfaces/hmppsUser'
 
 jest.mock('../data/restrictedPatientApiClient')
 jest.mock('../data/prisonApiClient')
 
-const prisonApiClient = new PrisonApiClient(null) as jest.Mocked<PrisonApiClient>
-const restrictedPatientApiClient = new RestrictedPatientApiClient(null) as jest.Mocked<RestrictedPatientApiClient>
+const prisonApiClient = new PrisonApiClient({} as AuthenticationClient) as jest.Mocked<PrisonApiClient>
+const restrictedPatientApiClient = new RestrictedPatientApiClient(
+  {} as AuthenticationClient,
+) as jest.Mocked<RestrictedPatientApiClient>
 
 const user = {
   username: 'user1',
   token: 'token-1',
-} as Context
+} as PrisonUser
 
 describe('removeRestrictedPatientService', () => {
   let service: RemoveRestrictedPatientService

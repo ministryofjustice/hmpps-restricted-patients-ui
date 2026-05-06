@@ -3,10 +3,11 @@ import request from 'supertest'
 import { appWithAllRoutes } from '../testutils/appSetup'
 import UserService from '../../services/userService'
 import { PrisonUser } from '../../interfaces/hmppsUser'
+import ManageUsersApiClient from '../../data/manageUsersApiClient'
 
 jest.mock('../../services/userService.ts')
 
-const userService = new UserService(null) as jest.Mocked<UserService>
+const userService = new UserService({} as ManageUsersApiClient) as jest.Mocked<UserService>
 
 let app: Express
 

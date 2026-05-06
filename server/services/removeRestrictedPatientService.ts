@@ -4,14 +4,14 @@ import PrisonApiClient from '../data/prisonApiClient'
 import RestrictedPatientApiClient from '../data/restrictedPatientApiClient'
 import { convertToTitleCase } from '../utils/utils'
 
-import { Context } from './context'
 import { RestrictedPatientDto } from '../@types/restricted-patients/restrictedPatientsApiTypes'
 import { PrisonerResult } from '../@types/prison-api/prisonApiTypes'
+import { PrisonUser } from '../interfaces/hmppsUser'
 
 export interface RestrictedPatientDetails {
   displayName: string
   friendlyName: string
-  hospital: string
+  hospital?: string | null
   prisonerNumber: string
 }
 
@@ -21,11 +21,11 @@ export default class RemoveRestrictedPatientService {
     private readonly restrictedPatientApiClient: RestrictedPatientApiClient,
   ) {}
 
-  async removeRestrictedPatient(prisonerNumber: string, user: Context): Promise<Record<string, unknown>> {
+  async removeRestrictedPatient(prisonerNumber: string, user: PrisonUser): Promise<Record<string, unknown>> {
     return this.restrictedPatientApiClient.removePatient(prisonerNumber, user.username)
   }
 
-  async getRestrictedPatient(prisonerNumber: string, user: Context): Promise<RestrictedPatientDetails> {
+  async getRestrictedPatient(prisonerNumber: string, user: PrisonUser): Promise<RestrictedPatientDetails> {
     const [patientDetails, prisonerDetails]: [RestrictedPatientDto, PrisonerResult] = await Promise.all([
       this.restrictedPatientApiClient.getPatient(prisonerNumber, user.token),
       this.prisonApiClient.getPrisonerDetails(prisonerNumber, asUser(user.token)),

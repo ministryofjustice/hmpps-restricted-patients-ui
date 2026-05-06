@@ -57,7 +57,7 @@ export default class PrisonerSearchClient extends RestClient {
   async restrictedPatientSearch(
     searchRequest: RestrictedPatientSearchRequest,
     token: string,
-  ): Promise<RestrictedPatientSearchResult[]> {
+  ): Promise<RestrictedPatientSearchResult[] | undefined> {
     return this.post<RestrictedPatientSearchResults>(
       {
         path: `/restricted-patient-search/match-restricted-patients`,

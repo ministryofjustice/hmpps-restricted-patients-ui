@@ -2,7 +2,6 @@ import { asUser } from '@ministryofjustice/hmpps-rest-client'
 
 import { convertToTitleCase } from '../utils/utils'
 
-import { Context } from './context'
 import PrisonApiClient from '../data/prisonApiClient'
 import PrisonerSearchClient, {
   RestrictedPatientSearchByName,
@@ -10,6 +9,7 @@ import PrisonerSearchClient, {
 } from '../data/prisonerSearchClient'
 import { Agency } from '../@types/prison-api/prisonApiTypes'
 import { RestrictedPatientSearchResult } from '../@types/prisoner-search/prisonerSearchTypes'
+import { PrisonUser } from '../interfaces/hmppsUser'
 
 export interface RestrictedPatientSearchSummary extends RestrictedPatientSearchResult {
   displayName: string
@@ -37,29 +37,32 @@ export default class RestrictedPatientSearchService {
     private readonly prisonerSearchClient: PrisonerSearchClient,
   ) {}
 
-  async search(search: RestrictedPatientSearchCriteria, user: Context): Promise<RestrictedPatientSearchSummary[]> {
+  async search(
+    search: RestrictedPatientSearchCriteria,
+    user: PrisonUser,
+  ): Promise<RestrictedPatientSearchSummary[] | undefined> {
     const searchTerm = search.searchTerm.replace(/,/g, ' ').replace(/\s\s+/g, ' ').trim()
 
     const searchRequest = isPrisonerIdentifier(searchTerm)
       ? searchByPrisonerIdentifier(searchTerm)
       : searchByName(searchTerm)
 
-    const [results, prisons]: [RestrictedPatientSearchResult[], Agency[]] = await Promise.all([
+    const [results, prisons]: [RestrictedPatientSearchResult[] | undefined, Agency[]] = await Promise.all([
       this.prisonerSearchClient.restrictedPatientSearch(searchRequest, user.token),
       this.prisonApiClient.getAgenciesByType('INST', asUser(user.token)),
     ])
 
     const prisonMap = new Map(prisons.map(i => [i.agencyId, i.description]))
 
-    const enhancedResults = results.map(prisoner => {
+    const enhancedResults = results?.map(prisoner => {
       return {
         ...prisoner,
         displayName: convertToTitleCase(`${prisoner.lastName}, ${prisoner.firstName}`),
-        supportingPrisonDescription: prisonMap.get(prisoner.supportingPrisonId),
+        supportingPrisonDescription: prisonMap.get(prisoner.supportingPrisonId || ''),
       }
     })
 
-    return enhancedResults.sort((a: RestrictedPatientSearchSummary, b: RestrictedPatientSearchSummary) =>
+    return enhancedResults?.sort((a: RestrictedPatientSearchSummary, b: RestrictedPatientSearchSummary) =>
       a.displayName.localeCompare(b.displayName),
     )
   }

@@ -5,14 +5,22 @@ import PrisonerSearchService, { PrisonerResultSummary } from '../../services/pri
 import AgencySearchService from '../../services/agencySearchService'
 import MigratePrisonerService from '../../services/migratePrisonerService'
 import { Agency } from '../../@types/prison-api/prisonApiTypes'
+import PrisonApiClient from '../../data/prisonApiClient'
+import RestrictedPatientApiClient from '../../data/restrictedPatientApiClient'
+import PrisonerSearchClient from '../../data/prisonerSearchClient'
 
 jest.mock('../../services/prisonerSearchService')
 jest.mock('../../services/migratePrisonerService')
 jest.mock('../../services/agencySearchService')
 
-const prisonerSearchService = new PrisonerSearchService(null, null) as jest.Mocked<PrisonerSearchService>
-const agencySearchService = new AgencySearchService(null) as jest.Mocked<AgencySearchService>
-const migratePrisonerService = new MigratePrisonerService(null) as jest.Mocked<MigratePrisonerService>
+const prisonerSearchService = new PrisonerSearchService(
+  {} as PrisonApiClient,
+  {} as PrisonerSearchClient,
+) as jest.Mocked<PrisonerSearchService>
+const agencySearchService = new AgencySearchService({} as PrisonApiClient) as jest.Mocked<AgencySearchService>
+const migratePrisonerService = new MigratePrisonerService(
+  {} as RestrictedPatientApiClient,
+) as jest.Mocked<MigratePrisonerService>
 
 let app: Express
 

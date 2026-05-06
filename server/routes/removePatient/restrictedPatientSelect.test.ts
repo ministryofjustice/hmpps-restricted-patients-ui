@@ -5,12 +5,14 @@ import RestrictedPatientSearchService, {
   RestrictedPatientSearchSummary,
 } from '../../services/restrictedPatientSearchService'
 import { appWithAllRoutes, mockJwtDecode } from '../testutils/appSetup'
+import PrisonApiClient from '../../data/prisonApiClient'
+import PrisonerSearchClient from '../../data/prisonerSearchClient'
 
 jest.mock('../../services/restrictedPatientSearchService')
 
 const restrictedPatientSearchService = new RestrictedPatientSearchService(
-  null,
-  null,
+  {} as PrisonApiClient,
+  {} as PrisonerSearchClient,
 ) as jest.Mocked<RestrictedPatientSearchService>
 
 let app: Express

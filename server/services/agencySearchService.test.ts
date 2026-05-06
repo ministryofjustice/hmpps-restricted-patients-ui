@@ -1,17 +1,18 @@
+import { AuthenticationClient } from '@ministryofjustice/hmpps-auth-clients'
 import AgencySearchService from './agencySearchService'
 import PrisonApiClient from '../data/prisonApiClient'
 
-import { Context } from './context'
 import { Agency } from '../@types/prison-api/prisonApiTypes'
+import { PrisonUser } from '../interfaces/hmppsUser'
 
 jest.mock('../data/prisonApiClient')
 
-const prisonApiClient = new PrisonApiClient(null) as jest.Mocked<PrisonApiClient>
+const prisonApiClient = new PrisonApiClient({} as AuthenticationClient) as jest.Mocked<PrisonApiClient>
 
 const user = {
   username: 'user1',
   token: 'token-1',
-} as Context
+} as PrisonUser
 
 describe('agencySearchService', () => {
   let service: AgencySearchService

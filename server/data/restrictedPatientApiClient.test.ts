@@ -39,7 +39,7 @@ describe('restrictedPatientApiClient', () => {
 
   describe('dischargePatient', () => {
     it('makes the correct call and returns the response', async () => {
-      const results: unknown = { restrictivePatient: { supportingPrisonId: 'MDI' } }
+      const results = { restrictivePatient: { supportingPrisonId: 'MDI' } }
       fakeRestrictedPatientApi
         .post(`/discharge-to-hospital`, JSON.stringify(dischargeToHospitalRequest))
         .matchHeader('authorization', `Bearer ${token}`)
@@ -74,7 +74,7 @@ describe('restrictedPatientApiClient', () => {
 
   describe('migratePatient', () => {
     it('makes the correct call and returns the response', async () => {
-      const results: unknown = { restrictivePatient: { supportingPrisonId: 'MDI' } }
+      const results = { restrictivePatient: { supportingPrisonId: 'MDI' } }
       fakeRestrictedPatientApi
         .post(`/migrate-in-restricted-patient`, JSON.stringify(migrateToHospitalRequest))
         .matchHeader('authorization', `Bearer ${token}`)

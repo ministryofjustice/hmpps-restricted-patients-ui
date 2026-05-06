@@ -1,18 +1,21 @@
+import { AuthenticationClient } from '@ministryofjustice/hmpps-auth-clients'
 import MigratePrisonerService from './migratePrisonerService'
 
-import { Context } from './context'
 import RestrictedPatientApiClient from '../data/restrictedPatientApiClient'
+import { PrisonUser } from '../interfaces/hmppsUser'
 
 jest.mock('../data/restrictedPatientApiClient')
 
 const user = {
   username: 'user1',
   token: 'token-1',
-} as Context
+} as PrisonUser
 
 describe('migratePrisonerService', () => {
   let service: MigratePrisonerService
-  const restrictedPatientApiClient = new RestrictedPatientApiClient(null) as jest.Mocked<RestrictedPatientApiClient>
+  const restrictedPatientApiClient = new RestrictedPatientApiClient(
+    {} as AuthenticationClient,
+  ) as jest.Mocked<RestrictedPatientApiClient>
 
   beforeEach(() => {
     service = new MigratePrisonerService(restrictedPatientApiClient)

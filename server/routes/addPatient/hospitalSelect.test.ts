@@ -4,12 +4,17 @@ import { appWithAllRoutes, mockJwtDecode } from '../testutils/appSetup'
 import PrisonerSearchService, { PrisonerResultSummary } from '../../services/prisonerSearchService'
 import AgencySearchService from '../../services/agencySearchService'
 import { Agency } from '../../@types/prison-api/prisonApiTypes'
+import PrisonApiClient from '../../data/prisonApiClient'
+import PrisonerSearchClient from '../../data/prisonerSearchClient'
 
 jest.mock('../../services/prisonerSearchService')
 jest.mock('../../services/agencySearchService')
 
-const prisonerSearchService = new PrisonerSearchService(null, null) as jest.Mocked<PrisonerSearchService>
-const agencySearchService = new AgencySearchService(null) as jest.Mocked<AgencySearchService>
+const prisonerSearchService = new PrisonerSearchService(
+  {} as PrisonApiClient,
+  {} as PrisonerSearchClient,
+) as jest.Mocked<PrisonerSearchService>
+const agencySearchService = new AgencySearchService({} as PrisonApiClient) as jest.Mocked<AgencySearchService>
 
 let app: Express
 

@@ -3,10 +3,15 @@ import { Express } from 'express'
 import request from 'supertest'
 import PrisonerSearchService, { PrisonerSearchSummary } from '../../services/prisonerSearchService'
 import { appWithAllRoutes, mockJwtDecode } from '../testutils/appSetup'
+import PrisonerSearchClient from '../../data/prisonerSearchClient'
+import PrisonApiClient from '../../data/prisonApiClient'
 
 jest.mock('../../services/prisonerSearchService')
 
-const prisonerSearchService = new PrisonerSearchService(null, null) as jest.Mocked<PrisonerSearchService>
+const prisonerSearchService = new PrisonerSearchService(
+  {} as PrisonApiClient,
+  {} as PrisonerSearchClient,
+) as jest.Mocked<PrisonerSearchService>
 
 let app: Express
 

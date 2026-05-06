@@ -1,6 +1,6 @@
 import RestrictedPatientApiClient from '../data/restrictedPatientApiClient'
 
-import { Context } from './context'
+import { PrisonUser } from '../interfaces/hmppsUser'
 
 export default class MovePrisonerService {
   constructor(private readonly client: RestrictedPatientApiClient) {}
@@ -9,7 +9,7 @@ export default class MovePrisonerService {
     prisonerNumber: string,
     currentPrisonId: string,
     hospitalId: string,
-    user: Context,
+    user: PrisonUser,
   ): Promise<unknown> {
     const request = {
       offenderNo: prisonerNumber,
@@ -20,7 +20,7 @@ export default class MovePrisonerService {
     return this.client.dischargePatient(request, user.token)
   }
 
-  async changeSupportingPrison(prisonerNumber: string, newPrisonId: string, user: Context): Promise<unknown> {
+  async changeSupportingPrison(prisonerNumber: string, newPrisonId: string, user: PrisonUser): Promise<unknown> {
     const request = {
       offenderNo: prisonerNumber,
       supportingPrisonId: newPrisonId,
