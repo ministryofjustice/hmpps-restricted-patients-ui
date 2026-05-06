@@ -74,7 +74,6 @@ describe('prisonerSearchClient', () => {
   it('parses response correctly', async () => {
     const response = [
       {
-        something: 'to ignore',
         prisonerNumber: 'A1234AA',
         firstName: 'John',
         lastName: 'Smith',
@@ -101,7 +100,7 @@ describe('prisonerSearchClient', () => {
         lastName: 'Smith',
         cellLocation: 'LEI-1-2',
         category: 'B',
-        sentenceExpiryDate: new Date(Date.UTC(2020, 8, 20)),
+        sentenceExpiryDate: '2020-09-20',
       },
     ])
     expect(nock.isDone()).toBe(true)
@@ -145,7 +144,6 @@ describe('prisonerSearchClient', () => {
     const response = {
       content: [
         {
-          something: 'to ignore',
           prisonerNumber: 'A1234AA',
           firstName: 'John',
           lastName: 'Smith',
@@ -172,6 +170,7 @@ describe('prisonerSearchClient', () => {
         '{"prisonerIdentifier":"A1234AA"}',
       )
       .matchHeader('authorization', `Bearer ${token}`)
+      .matchHeader('authorization', `Bearer ${token}`)
       .reply(200, response)
 
     const output = await client.restrictedPatientSearch({ prisonerIdentifier: 'A1234AA' }, token)
@@ -183,7 +182,7 @@ describe('prisonerSearchClient', () => {
         lastName: 'Smith',
         cellLocation: 'LEI-1-2',
         category: 'B',
-        sentenceExpiryDate: new Date(Date.UTC(2020, 8, 20)),
+        sentenceExpiryDate: '2020-09-20',
         locationDescription: 'Outside - released from Moorland (HMP & YOI)',
         restrictedPatient: true,
         alerts: [

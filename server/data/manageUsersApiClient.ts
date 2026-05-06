@@ -2,16 +2,7 @@ import { ApiConfig, RestClient, asUser } from '@ministryofjustice/hmpps-rest-cli
 
 import logger from '../../logger'
 import config from '../config'
-
-export interface User {
-  username: string
-  name?: string
-  active?: boolean
-  authSource?: string
-  uuid?: string
-  userId?: string
-  activeCaseLoadId?: string // Will be removed from User. For now, use 'me/caseloads' endpoint in 'nomis-user-roles-api'
-}
+import { User } from '../@types/manage-users-api/manageUsersApiTypes'
 
 export default class ManageUsersApiClient extends RestClient {
   constructor() {

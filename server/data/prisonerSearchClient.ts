@@ -1,12 +1,13 @@
 import { ApiConfig, asSystem, asUser, RestClient } from '@ministryofjustice/hmpps-rest-client'
 import { AuthenticationClient } from '@ministryofjustice/hmpps-auth-clients'
-import { plainToClass } from 'class-transformer'
 
 import config from '../config'
-import PrisonerSearchResult from './prisonerSearchResult'
 import logger from '../../logger'
-import RestrictedPatientSearchResult from './restrictedPatientSearchResult'
-import RestrictedPatientSearchResults from './restrictedPatientSearchResults'
+import {
+  PrisonerSearchResult,
+  RestrictedPatientSearchResult,
+  RestrictedPatientSearchResults,
+} from '../@types/prisoner-search/prisonerSearchTypes'
 
 export interface PrisonerSearchByPrisonerNumber {
   prisonerIdentifier: string
@@ -40,7 +41,7 @@ export default class PrisonerSearchClient extends RestClient {
   }
 
   async search(searchRequest: PrisonerSearchRequest, username: string): Promise<PrisonerSearchResult[]> {
-    const results = await this.post<PrisonerSearchResult[]>(
+    return this.post<PrisonerSearchResult[]>(
       {
         path: `/prisoner-search/match-prisoners`,
         query: { responseFieldsClient: 'restricted-patients' },
@@ -51,25 +52,19 @@ export default class PrisonerSearchClient extends RestClient {
       },
       asSystem(username),
     )
-
-    return results.map(result => plainToClass(PrisonerSearchResult, result, { excludeExtraneousValues: true }))
   }
 
   async restrictedPatientSearch(
     searchRequest: RestrictedPatientSearchRequest,
     token: string,
   ): Promise<RestrictedPatientSearchResult[]> {
-    const results = await this.post<RestrictedPatientSearchResults>(
+    return this.post<RestrictedPatientSearchResults>(
       {
         path: `/restricted-patient-search/match-restricted-patients`,
         query: { size: 3000, responseFieldsClient: 'restricted-patients' },
         data: { ...searchRequest },
       },
       asUser(token),
-    )
-
-    return results?.content.map(result =>
-      plainToClass(RestrictedPatientSearchResult, result, { excludeExtraneousValues: true }),
-    )
+    ).then((results: RestrictedPatientSearchResults) => results?.content)
   }
 }

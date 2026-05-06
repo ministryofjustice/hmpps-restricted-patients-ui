@@ -71,4 +71,6 @@ that specification.
 ```
 npx openapi-typescript https://restricted-patients-api-dev.hmpps.service.justice.gov.uk/v3/api-docs > ./server/@types/restricted-patients/index.d.ts
 npx openapi-typescript https://prison-api-dev.prison.service.justice.gov.uk/v3/api-docs > ./server/@types/prison-api/index.d.ts
+npx openapi-typescript https://manage-users-api-dev.hmpps.service.justice.gov.uk/v3/api-docs > ./server/@types/manage-users-api/index.d.ts
+npx openapi-typescript https://prisoner-search-dev.prison.service.justice.gov.uk/v3/api-docs > ./server/@types/prisoner-search/index.d.ts
 ```

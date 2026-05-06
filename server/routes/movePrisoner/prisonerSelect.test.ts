@@ -53,7 +53,7 @@ describe('GET /select-prisoner', () => {
           recall: false,
           indeterminateSentence: false,
           conditionalReleaseDate: new Date(new Date().getDate() - 1),
-        } as PrisonerSearchSummary,
+        } as unknown as PrisonerSearchSummary,
         {
           alerts: [],
           cellLocation: '1-2-017',
@@ -63,7 +63,7 @@ describe('GET /select-prisoner', () => {
           recall: true,
           indeterminateSentence: false,
           sentenceExpiryDate: new Date(new Date().getDate() - 1),
-        } as PrisonerSearchSummary,
+        } as unknown as PrisonerSearchSummary,
       ])
     })
 

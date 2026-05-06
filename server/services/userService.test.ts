@@ -1,6 +1,7 @@
 import UserService from './userService'
-import ManageUsersApiClient, { type User } from '../data/manageUsersApiClient'
+import ManageUsersApiClient from '../data/manageUsersApiClient'
 import createUserToken from '../testutils/createUserToken'
+import { User } from '../@types/manage-users-api/manageUsersApiTypes'
 
 jest.mock('../data/manageUsersApiClient')
 
