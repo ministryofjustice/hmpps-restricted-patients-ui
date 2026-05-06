@@ -40,8 +40,13 @@ export default class RestrictedPatientSearchFilter {
     (prisoner.lastMovementReasonCode === 'HP' || prisoner.lastMovementReasonCode === 'HO')
 
   private determinateSentenceAfterCRD = (prisoner: PrisonerSearchSummary): boolean =>
-    !prisoner.recall && !prisoner.indeterminateSentence && new Date(prisoner.conditionalReleaseDate) < new Date()
+    !(prisoner.recall || false) &&
+    !(prisoner.indeterminateSentence || false) &&
+    prisoner.conditionalReleaseDate !== undefined &&
+    new Date(prisoner.conditionalReleaseDate) < new Date()
 
   private recallAfterSED = (prisoner: PrisonerSearchSummary): boolean =>
-    prisoner.recall && new Date(prisoner.sentenceExpiryDate) < new Date()
+    (prisoner.recall || false) &&
+    prisoner.sentenceExpiryDate !== undefined &&
+    new Date(prisoner.sentenceExpiryDate) < new Date()
 }

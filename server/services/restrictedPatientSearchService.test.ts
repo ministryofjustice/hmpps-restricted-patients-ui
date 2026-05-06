@@ -1,22 +1,23 @@
 import 'reflect-metadata'
 
+import { AuthenticationClient } from '@ministryofjustice/hmpps-auth-clients'
 import RestrictedPatientSearchService from './restrictedPatientSearchService'
 import PrisonerSearchClient from '../data/prisonerSearchClient'
 import PrisonApiClient from '../data/prisonApiClient'
 
-import { Context } from './context'
 import { Agency } from '../@types/prison-api/prisonApiTypes'
 import { RestrictedPatientSearchResult } from '../@types/prisoner-search/prisonerSearchTypes'
+import { PrisonUser } from '../interfaces/hmppsUser'
 
 jest.mock('../data/prisonerSearchClient')
 jest.mock('../data/prisonApiClient')
 
 const user = {
   token: 'token-1',
-} as Context
+} as PrisonUser
 
-const prisonApiClient = new PrisonApiClient(null) as jest.Mocked<PrisonApiClient>
-const prisonerSearchClient = new PrisonerSearchClient(null) as jest.Mocked<PrisonerSearchClient>
+const prisonApiClient = new PrisonApiClient({} as AuthenticationClient) as jest.Mocked<PrisonApiClient>
+const prisonerSearchClient = new PrisonerSearchClient({} as AuthenticationClient) as jest.Mocked<PrisonerSearchClient>
 
 describe('restrictedPatientSearchService', () => {
   let service: RestrictedPatientSearchService
@@ -64,7 +65,7 @@ describe('restrictedPatientSearchService', () => {
           prisonerNumber: 'A1234AB',
           supportingPrisonId: 'DNI',
           dischargedHospitalDescription: 'Yew Trees',
-        } as RestrictedPatientSearchResult,
+        } as unknown as RestrictedPatientSearchResult,
       ])
 
       const results = await service.search({ searchTerm: 'a1234aA' }, user)

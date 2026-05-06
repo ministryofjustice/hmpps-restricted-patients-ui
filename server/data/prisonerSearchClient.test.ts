@@ -107,7 +107,7 @@ describe('prisonerSearchClient', () => {
   })
 
   it('search for restricted patients by prisoner identifier', async () => {
-    const response: unknown = { content: [] }
+    const response = { content: [] }
     const results: unknown[] = []
     fakePrisonerSearchApi
       .post(
@@ -124,7 +124,7 @@ describe('prisonerSearchClient', () => {
   })
 
   it('search for restricted patients by prisoner name', async () => {
-    const response: unknown = { content: [] }
+    const response = { content: [] }
     const results: unknown[] = []
     fakePrisonerSearchApi
       .post(

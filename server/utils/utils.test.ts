@@ -31,7 +31,7 @@ describe('initialise name', () => {
 
 describe('Possessive', () => {
   it('No string', () => {
-    expect(possessive(null)).toEqual('')
+    expect(possessive('')).toEqual('')
   })
   it('Converts name with no S correctly', () => {
     expect(possessive('David Smith')).toEqual('David Smith’s')
@@ -47,10 +47,10 @@ describe('hasAnyRole', () => {
   })
   it('returns false when they have none of the required roles', () => {
     expect(hasAnyRole(['ROLE_ONE', 'ROLE_TWO'], ['ROLE_THREE', 'ROLE_FOUR'])).toEqual(false)
-    expect(hasAnyRole(['ROLE_ONE', 'ROLE_TWO'], null)).toEqual(false)
+    expect(hasAnyRole(['ROLE_ONE', 'ROLE_TWO'], [])).toEqual(false)
   })
   it('returns true if there are no required roles', () => {
-    expect(hasAnyRole(null, null)).toEqual(true)
+    expect(hasAnyRole(null, [])).toEqual(true)
     expect(hasAnyRole(null, ['ROLE_ONE'])).toEqual(true)
   })
 })

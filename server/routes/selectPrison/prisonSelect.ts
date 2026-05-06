@@ -26,12 +26,12 @@ export default abstract class PrisonSelectRoutes {
     const { user } = res.locals
     const { error } = pageData
 
-    const [prisons, prisoners]: [Agency[], RestrictedPatientSearchSummary[]] = await Promise.all([
+    const [prisons, prisoners]: [Agency[], RestrictedPatientSearchSummary[] | undefined] = await Promise.all([
       this.agencySearchService.getPrisons(user),
       this.restrictedPatientSearchService.search({ searchTerm: prisonerNumber }, user),
     ])
-    if (prisoners.length !== 1) {
-      logger.error(`Found ${prisoners.length} when searching for ${prisonerNumber}`)
+    if (prisoners?.length !== 1) {
+      logger.error(`Found ${prisoners?.length} when searching for ${prisonerNumber}`)
       return res.render('pages/notFound.njk')
     }
 

@@ -10,13 +10,8 @@ export default function setUpCurrentUser({ userService }: Services): Router {
 
   router.use(async (_req, res, next) => {
     try {
-      const {
-        name,
-        user_id: userId,
-        authorities: roles = [],
-      } = jwtDecode(res.locals.user.token) as {
+      const { name, authorities: roles = [] } = jwtDecode(res.locals.user.token) as {
         name?: string
-        user_id?: string
         authorities?: string[]
       }
 
@@ -24,8 +19,6 @@ export default function setUpCurrentUser({ userService }: Services): Router {
 
       res.locals.user = {
         ...res.locals.user,
-        userId,
-        name,
         ...user,
         displayName: convertToTitleCase(name),
         userRoles: roles.map(role => role.substring(role.indexOf('_') + 1)),

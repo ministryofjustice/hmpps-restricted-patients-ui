@@ -2,12 +2,14 @@ import { Express } from 'express'
 import request from 'supertest'
 import RemoveRestrictedPatientService, { RestrictedPatientDetails } from '../../services/removeRestrictedPatientService'
 import { appWithAllRoutes, mockJwtDecode } from '../testutils/appSetup'
+import PrisonApiClient from '../../data/prisonApiClient'
+import RestrictedPatientApiClient from '../../data/restrictedPatientApiClient'
 
 jest.mock('../../services/removeRestrictedPatientService')
 
 const removeRestrictedPatientService = new RemoveRestrictedPatientService(
-  null,
-  null,
+  {} as PrisonApiClient,
+  {} as RestrictedPatientApiClient,
 ) as jest.Mocked<RemoveRestrictedPatientService>
 
 let app: Express

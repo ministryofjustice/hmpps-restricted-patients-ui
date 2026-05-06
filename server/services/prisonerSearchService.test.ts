@@ -1,25 +1,26 @@
 import { Readable } from 'stream'
 import 'reflect-metadata'
 
+import { AuthenticationClient } from '@ministryofjustice/hmpps-auth-clients'
 import PrisonerSearchService, { PrisonerSearchSummary } from './prisonerSearchService'
 import PrisonerSearchClient from '../data/prisonerSearchClient'
 import PrisonApiClient from '../data/prisonApiClient'
 
-import { Context } from './context'
 import { PrisonerResult } from '../@types/prison-api/prisonApiTypes'
 import { PrisonerSearchResult } from '../@types/prisoner-search/prisonerSearchTypes'
+import { PrisonUser } from '../interfaces/hmppsUser'
 
 jest.mock('../data/prisonerSearchClient')
 jest.mock('../data/prisonApiClient')
 
-const prisonApiClient = new PrisonApiClient(null) as jest.Mocked<PrisonApiClient>
-const prisonerSearchClient = new PrisonerSearchClient(null) as jest.Mocked<PrisonerSearchClient>
+const prisonApiClient = new PrisonApiClient({} as AuthenticationClient) as jest.Mocked<PrisonApiClient>
+const prisonerSearchClient = new PrisonerSearchClient({} as AuthenticationClient) as jest.Mocked<PrisonerSearchClient>
 
 const prisonIds = ['PR1', 'PR2']
 const user = {
   username: 'user1',
   token: 'token-1',
-} as Context
+} as PrisonUser
 
 describe('prisonerSearchService', () => {
   let service: PrisonerSearchService
@@ -51,7 +52,7 @@ describe('prisonerSearchService', () => {
           lastName: 'JONES',
           prisonerNumber: 'A1234AB',
           cellLocation: '1-2-016',
-        } as PrisonerSearchResult,
+        } as unknown as PrisonerSearchResult,
       ])
       const results = await service.search({ searchTerm: 'a1234aA', prisonIds }, user)
       expect(results).toStrictEqual([
@@ -94,7 +95,7 @@ describe('prisonerSearchService', () => {
           lastName: 'SMITH',
           prisonerNumber: 'A1234AA',
           alerts: [],
-        } as PrisonerSearchSummary,
+        } as unknown as PrisonerSearchSummary,
       ])
       const results = await service.search({ searchTerm: 'Smith, John', prisonIds }, user)
       expect(results).toStrictEqual([
@@ -147,7 +148,7 @@ describe('prisonerSearchService', () => {
       const result = await service.getPrisonerImage('A1234AA', {
         username: 'user1',
         token: 'token-1',
-      })
+      } as PrisonUser)
 
       expect(result.read()).toEqual('image data')
       expect(prisonApiClient.getPrisonerImage).toHaveBeenCalledWith('A1234AA', {
@@ -175,7 +176,7 @@ describe('prisonerSearchService', () => {
       const result = await service.getPrisonerDetails('A1234AA', {
         username: 'user1',
         token: 'token-1',
-      })
+      } as PrisonUser)
 
       expect(result).toEqual({
         alerts: [
