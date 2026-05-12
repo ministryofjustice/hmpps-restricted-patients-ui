@@ -1,6 +1,7 @@
 generic-service:
   nameOverride: hmpps-restricted-patients-ui
   productId: DPS066
+  cronPrefixName: ui
 
   replicaCount: 4
 
