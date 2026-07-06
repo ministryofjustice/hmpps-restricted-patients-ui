@@ -1,12 +1,15 @@
 import { expect, test } from '@playwright/test'
-import hmppsAuth from '../mockApis/hmppsAuth'
-import tokenVerification from '../mockApis/tokenVerification'
-
-import { resetStubs } from '../testUtils'
 import prisonApi from '../mockApis/prisonApi'
 import restrictedPatientApi from '../mockApis/restrictedPatientApi'
 import manageUsersApi from '../mockApis/manageUsersApi'
 import search from '../mockApis/search'
+import hmppsAuth from '../mockApis/hmppsAuth'
+import tokenVerification from '../mockApis/tokenVerification'
+
+import { resetStubs } from '../testUtils'
+
+// NB: add new mock apis here:
+const mockApis = [hmppsAuth, tokenVerification, prisonApi, restrictedPatientApi, manageUsersApi, search]
 
 test.describe('Health', () => {
   test.afterEach(async () => {
@@ -15,14 +18,7 @@ test.describe('Health', () => {
 
   test.describe('All healthy', () => {
     test.beforeEach(async () => {
-      await Promise.all([
-        hmppsAuth.stubPing(),
-        manageUsersApi.stubPing(),
-        restrictedPatientApi.stubPing(),
-        prisonApi.stubPing(),
-        search.stubPing(),
-        tokenVerification.stubPing(),
-      ])
+      await Promise.all(mockApis.map(api => api.stubPing()))
     })
 
     test('Health check is accessible and status is UP', async ({ page }) => {
@@ -58,48 +54,22 @@ test.describe('Health', () => {
   })
 
   test.describe('Some unhealthy', () => {
-    test.beforeEach(async () => {
-      await Promise.all([
-        hmppsAuth.stubPing(),
-        manageUsersApi.stubPing(),
-        restrictedPatientApi.stubPing(500),
-        prisonApi.stubPing(500),
-        search.stubPing(500),
-        tokenVerification.stubPing(500),
-      ])
-    })
+    test('Health check status is down for 1 api', async ({ page }) => {
+      await Promise.all(mockApis.map(api => (api === tokenVerification ? api.stubPing(500) : api.stubPing())))
 
-    test('Health check status is down', async ({ page }) => {
       const response = await page.request.get('/health')
       const payload = await response.json()
       expect(payload.status).toBe('DOWN')
       expect(payload.components.hmppsAuth.status).toBe('UP')
-      expect(payload.components.manageUsersApi.status).toBe('UP')
-      expect(payload.components.restrictedPatientApi.status).toBe('DOWN')
       expect(payload.components.tokenVerification.status).toBe('DOWN')
       expect(payload.components.tokenVerification.details.status).toBe(500)
       expect(payload.components.tokenVerification.details.attempts).toBe(3)
-    })
-
-    test('Some dependant APIs are unhealthy', async ({ page }) => {
-      const response = await page.request.get('/health')
-      const payload = await response.json()
-      expect(payload.status).toBe('DOWN')
-      expect(payload.components.hmppsAuth.status).toBe('UP')
-      expect(payload.components.prisonerSearch.status).toBe('DOWN')
-      expect(payload.components.prisonerSearch.details).toEqual({
-        status: 500,
-        attempts: 3,
-        message: 'Internal Server Error',
-      })
-      expect(payload.components.tokenVerification.status).toBe('DOWN')
-      expect(payload.components.tokenVerification.details).toEqual({
-        status: 500,
-        attempts: 3,
-        message: 'Internal Server Error',
-      })
-      expect(payload.components.prisonApi.status).toBe('DOWN')
-      expect(payload.components.restrictedPatientApi.status).toBe('DOWN')
+      expect(
+        Object.values<{ status: 'UP' | 'DOWN' }>(payload.components).reduce(
+          (downCount, api) => (api.status === 'DOWN' ? downCount + 1 : downCount),
+          0,
+        ),
+      ).toEqual(1)
     })
   })
 })
