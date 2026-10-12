@@ -27,7 +27,6 @@ generic-service:
 
 generic-prometheus-alerts:
   businessHoursOnly: true
-  alertSeverity: syscon-nonprod
 
   elastiCacheAlertsClusterIds:
     cp-072966302b0ced74-001: "HMPPS Restricted Patients ElastiCache Cluster Node 1"
