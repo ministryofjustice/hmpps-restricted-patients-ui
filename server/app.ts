@@ -56,6 +56,8 @@ export default function createApp(services: Services): express.Application {
   app.use(setupJourneyStart())
   // For prison users, register the `addUserMetadataToTelemetry` middleware after middleware that retrieves caseload data.
   app.use(telemetryMiddleware.addUserMetadataToTelemetry())
+  // For prison users, register the `addUserMetadataToTelemetry` middleware after middleware that retrieves caseload data.
+  app.use(telemetryMiddleware.addUserMetadataToTelemetry())
 
   app.use(routes(services))
 
