@@ -1,5 +1,6 @@
 import express, { Router } from 'express'
 import { jwtDecode } from 'jwt-decode'
+import { UUID } from 'crypto'
 import { convertToTitleCase } from '../utils/utils'
 import logger from '../../logger'
 import type { Services } from '../services'
@@ -10,8 +11,13 @@ export default function setUpCurrentUser({ userService }: Services): Router {
 
   router.use(async (_req, res, next) => {
     try {
-      const { name, authorities: roles = [] } = jwtDecode(res.locals.user.token) as {
+      const {
+        name,
+        user_uuid: userUuid,
+        authorities: roles = [],
+      } = jwtDecode(res.locals.user.token) as {
         name?: string
+        user_uuid?: UUID
         authorities?: string[]
       }
 
@@ -20,6 +26,8 @@ export default function setUpCurrentUser({ userService }: Services): Router {
       res.locals.user = {
         ...res.locals.user,
         ...user,
+        // manage-users-api calls this field `uuid`, so take it from the token where telemetry expects it
+        userUuid,
         displayName: convertToTitleCase(name),
         userRoles: roles.map(role => role.substring(role.indexOf('_') + 1)),
       } as PrisonUser
