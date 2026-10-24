@@ -1,3 +1,4 @@
+import type { PageViewEventDetails } from '@ministryofjustice/hmpps-audit-client'
 import { PrisonUser } from '../../interfaces/hmppsUser'
 
 export declare module 'express-session' {
@@ -31,6 +32,8 @@ export declare global {
 
     interface Locals {
       user: PrisonUser
+      /** Page view being audited to HMPPS Audit (see auditPageView middleware) */
+      auditEvent?: PageViewEventDetails
       cspNonce: string
       csrfToken: string
       asset_path: string

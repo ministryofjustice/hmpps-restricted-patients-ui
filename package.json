@@ -31,6 +31,7 @@
   },
   "dependencies": {
     "@ministryofjustice/frontend": "^11.1.0",
+    "@ministryofjustice/hmpps-audit-client": "2.0.0",
     "@ministryofjustice/hmpps-auth-clients": "3.0.0",
     "@ministryofjustice/hmpps-azure-telemetry": "^1.1.0",
     "@ministryofjustice/hmpps-connect-dps-components": "6.4",

@@ -3,6 +3,9 @@ generic-service:
   productId: DPS066
   cronPrefixName: ui
 
+  # has permission to send to the HMPPS Audit queue
+  serviceAccountName: "hmpps-restricted-patients-ui"
+
   replicaCount: 4
 
   image:
@@ -42,6 +45,9 @@ generic-service:
     REDIS_ENABLED: "true"
     REDIS_TLS_ENABLED: "true"
     TOKEN_VERIFICATION_ENABLED: "true"
+    AUDIT_ENABLED: "true"
+    AUDIT_SQS_REGION: "eu-west-2"
+    AUDIT_SERVICE_NAME: "hmpps-restricted-patients-ui"
 
   namespace_secrets:
     hmpps-restricted-patients-ui-application-insights:
@@ -57,6 +63,9 @@ generic-service:
     elasticache-redis:
       REDIS_HOST: "primary_endpoint_address"
       REDIS_AUTH_TOKEN: "auth_token"
+    sqs-hmpps-audit-secret:
+      AUDIT_SQS_QUEUE_URL: "sqs_queue_url"
+      AUDIT_SQS_QUEUE_NAME: "sqs_queue_name"
 
   allowlist:
     groups:
