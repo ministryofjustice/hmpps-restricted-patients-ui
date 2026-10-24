@@ -7,6 +7,7 @@ import { getFrontendComponents } from '@ministryofjustice/hmpps-connect-dps-comp
 
 import nunjucksSetup from './utils/nunjucksSetup'
 import errorHandler from './errorHandler'
+import auditPageView from './middleware/auditPageView'
 import authorisationMiddleware from './middleware/authorisationMiddleware'
 
 import setUpAuthentication from './middleware/setUpAuthentication'
@@ -38,6 +39,8 @@ export default function createApp(services: Services): express.Application {
   app.use(setUpStaticResources())
   nunjucksSetup(app)
   app.use(setUpAuthentication())
+  // before authorisation, so that refused requests are still audited as access attempts
+  app.get('*any', auditPageView(services.auditService))
   app.use(authorisationMiddleware())
   app.use(setUpCsrf())
 
