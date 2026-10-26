@@ -9,6 +9,7 @@ import errorHandler from '../../errorHandler'
 import type { Services } from '../../services'
 import { PrisonUser } from '../../interfaces/hmppsUser'
 import setUpWebSession from '../../middleware/setUpWebSession'
+import auditPageView from '../../middleware/auditPageView'
 
 export const user: PrisonUser = {
   name: 'FIRST LAST',
@@ -60,6 +61,10 @@ function appSetup(
     req.id = '4d0fd4da-ecc1-454d-8308-cdee6b8b91f7'
     next()
   })
+  // as in app.ts: once the user is known, before any routes
+  if (services.auditService) {
+    app.get('*any', auditPageView(services.auditService))
+  }
   app.use(express.json())
   app.use(express.urlencoded({ extended: true }))
   app.use(routes(services))
