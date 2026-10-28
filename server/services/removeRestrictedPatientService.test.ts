@@ -37,7 +37,7 @@ describe('removeRestrictedPatientService', () => {
 
       const response = await service.removeRestrictedPatient('A1234AA', user)
 
-      expect(restrictedPatientApiClient.removePatient).toHaveBeenCalledWith('A1234AA', user.username)
+      expect(restrictedPatientApiClient.removePatient).toHaveBeenCalledWith('A1234AA', user.token)
       expect(response).toStrictEqual({})
     })
   })
