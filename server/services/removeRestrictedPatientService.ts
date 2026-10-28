@@ -22,7 +22,7 @@ export default class RemoveRestrictedPatientService {
   ) {}
 
   async removeRestrictedPatient(prisonerNumber: string, user: PrisonUser): Promise<Record<string, unknown>> {
-    return this.restrictedPatientApiClient.removePatient(prisonerNumber, user.username)
+    return this.restrictedPatientApiClient.removePatient(prisonerNumber, user.token)
   }
 
   async getRestrictedPatient(prisonerNumber: string, user: PrisonUser): Promise<RestrictedPatientDetails> {

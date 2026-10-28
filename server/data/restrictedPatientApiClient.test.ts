@@ -136,10 +136,10 @@ describe('restrictedPatientApiClient', () => {
     it('works', async () => {
       fakeRestrictedPatientApi
         .delete('/restricted-patient/prison-number/A1234AA')
-        .matchHeader('authorization', 'Bearer test-system-token')
+        .matchHeader('authorization', `Bearer ${token}`)
         .reply(200)
 
-      const response = await client.removePatient('A1234AA', 'user1')
+      const response = await client.removePatient('A1234AA', token)
 
       expect(response).toEqual({})
       expect(nock.isDone()).toBe(true)

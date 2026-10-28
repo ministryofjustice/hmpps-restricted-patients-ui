@@ -1,4 +1,4 @@
-import { asSystem, asUser, RestClient } from '@ministryofjustice/hmpps-rest-client'
+import { asUser, RestClient } from '@ministryofjustice/hmpps-rest-client'
 import { AuthenticationClient } from '@ministryofjustice/hmpps-auth-clients'
 
 import config from '../config'
@@ -44,12 +44,12 @@ export default class RestrictedPatientApiClient extends RestClient {
     )
   }
 
-  async removePatient(prisonerNumber: string, username: string): Promise<Record<string, unknown>> {
+  async removePatient(prisonerNumber: string, token: string): Promise<Record<string, unknown>> {
     return this.delete<Record<string, unknown>>(
       {
         path: `/restricted-patient/prison-number/${prisonerNumber}`,
       },
-      asSystem(username),
+      asUser(token),
     )
   }
 
