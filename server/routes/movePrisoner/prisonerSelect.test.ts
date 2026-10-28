@@ -86,7 +86,7 @@ describe('GET /select-prisoner', () => {
           expect(res.text).toContain('1-2-015')
           expect(res.text).toContain('Controlled unlock')
           expect(res.text).toContain(
-            '<a href="/move-to-hospital/select-hospital?prisonerNumber=A1234AA&journeyStartUrl=/move-to-hospital/select-prisoner?searchTerm=Smith" class="govuk-link" data-qa="prisoner-move-to-hospital-link"><span class="govuk-visually-hidden">Smith, John - </span>Move to a hospital</a>',
+            '<a href="/move-to-hospital/select-hospital?prisonerNumber=A1234AA&amp;journeyStartUrl=%2Fmove-to-hospital%2Fselect-prisoner%3FsearchTerm%3DSmith" class="govuk-link" data-qa="prisoner-move-to-hospital-link"><span class="govuk-visually-hidden">Smith, John - </span>Move to a hospital</a>',
           )
         })
     })
@@ -102,6 +102,21 @@ describe('GET /select-prisoner', () => {
           expect(res.text).toContain(
             `<p><span class="govuk-visually-hidden">No move link - determinate recall past SED - </span>Ineligible (past SED)<br><a href="/help?section=restricted-patients-should-be-removed" class="govuk-link" data-qa="help-link" target="restricted_patients_help">View Help</a></p>`,
           )
+        })
+    })
+
+    it('should escape the name and search term in the link', async () => {
+      const [prisoner] = await prisonerSearchService.search({ searchTerm: '', prisonIds: [] }, {} as never)
+      prisonerSearchService.search.mockResolvedValue([{ ...prisoner!, displayName: `O'Brien <b>& Co</b>` }])
+
+      return request(app)
+        .get(`/move-to-hospital/select-prisoner?searchTerm=${encodeURIComponent(`o'brien & <b>`)}`)
+        .expect('Content-Type', /html/)
+        .expect(res => {
+          expect(res.text).toContain(
+            '<a href="/move-to-hospital/select-hospital?prisonerNumber=A1234AA&amp;journeyStartUrl=%2Fmove-to-hospital%2Fselect-prisoner%3FsearchTerm%3Do%2527brien%2B%2526%2B%253Cb%253E" class="govuk-link" data-qa="prisoner-move-to-hospital-link"><span class="govuk-visually-hidden">O&#39;Brien &lt;b&gt;&amp; Co&lt;/b&gt; - </span>',
+          )
+          expect(res.text).not.toContain('<b>& Co</b>')
         })
     })
 

@@ -129,7 +129,7 @@ describe('GET /select-prisoner', () => {
           expect(res.text).toContain('Outside - released from Doncaster')
           expect(res.text).toContain('Controlled unlock')
           expect(res.text).toContain(
-            '<a href="/add-restricted-patient/select-hospital?prisonerNumber=A1234AA&journeyStartUrl=/add-restricted-patient/select-prisoner?searchTerm=Smith" class="govuk-link" data-qa="prisoner-add-restricted-patient-link"><span class="govuk-visually-hidden">Smith, John - </span>Add to restricted patients</a>',
+            '<a href="/add-restricted-patient/select-hospital?prisonerNumber=A1234AA&amp;journeyStartUrl=%2Fadd-restricted-patient%2Fselect-prisoner%3FsearchTerm%3DSmith" class="govuk-link" data-qa="prisoner-add-restricted-patient-link"><span class="govuk-visually-hidden">Smith, John - </span>Add to restricted patients</a>',
           )
         })
     })
@@ -150,6 +150,21 @@ describe('GET /select-prisoner', () => {
           expect(res.text).toContain(
             `<p><span class="govuk-visually-hidden">No add link - not released to a prison - </span>Ineligible (not released to hospital)<br><a href="/help?section=not-released-to-hospital" class="govuk-link" data-qa="help-link" target="restricted_patients_help">View Help</a></p>`,
           )
+        })
+    })
+
+    it('should escape the name and search term in the link', async () => {
+      const [prisoner] = await prisonerSearchService.search({ searchTerm: '', prisonIds: [] }, {} as never)
+      prisonerSearchService.search.mockResolvedValue([{ ...prisoner!, displayName: `O'Brien <b>& Co</b>` }])
+
+      return request(app)
+        .get(`/add-restricted-patient/select-prisoner?searchTerm=${encodeURIComponent(`o'brien & <b>`)}`)
+        .expect('Content-Type', /html/)
+        .expect(res => {
+          expect(res.text).toContain(
+            '<a href="/add-restricted-patient/select-hospital?prisonerNumber=A1234AA&amp;journeyStartUrl=%2Fadd-restricted-patient%2Fselect-prisoner%3FsearchTerm%3Do%2527brien%2B%2526%2B%253Cb%253E" class="govuk-link" data-qa="prisoner-add-restricted-patient-link"><span class="govuk-visually-hidden">O&#39;Brien &lt;b&gt;&amp; Co&lt;/b&gt; - </span>',
+          )
+          expect(res.text).not.toContain('<b>& Co</b>')
         })
     })
 

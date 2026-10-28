@@ -2,6 +2,7 @@ import { Request, Response } from 'express'
 import { FormError } from '../../@types/template'
 import PrisonerSearchService, { PrisonerSearchSummary } from '../../services/prisonerSearchService'
 import validateForm from '../searchPrisoners/prisonerSearchValidation'
+import { escapeHtml } from '../../utils/utils'
 import RestrictedPatientSearchFilter, { SearchStatus } from '../searchPatients/restrictedPatientSearchFilter'
 
 type PageData = {
@@ -53,17 +54,24 @@ export default class PrisonerSelectRoutes {
   }
 
   private addLink(prisoner: PrisonerSearchSummary, searchTerm: string): string {
+    const displayName = escapeHtml(prisoner.displayName)
+    const href = escapeHtml(
+      `/add-restricted-patient/select-hospital?${new URLSearchParams({
+        prisonerNumber: prisoner.prisonerNumber,
+        journeyStartUrl: `/add-restricted-patient/select-prisoner?${new URLSearchParams({ searchTerm })}`,
+      })}`,
+    )
     if (prisoner.searchStatus === SearchStatus.INCLUDE) {
-      return `<a href="/add-restricted-patient/select-hospital?prisonerNumber=${prisoner.prisonerNumber}&journeyStartUrl=/add-restricted-patient/select-prisoner?searchTerm=${searchTerm}" class="govuk-link" data-qa="prisoner-add-restricted-patient-link"><span class="govuk-visually-hidden">${prisoner.displayName} - </span>Add to restricted patients</a>`
+      return `<a href="${href}" class="govuk-link" data-qa="prisoner-add-restricted-patient-link"><span class="govuk-visually-hidden">${displayName} - </span>Add to restricted patients</a>`
     }
     if (prisoner.searchStatus === SearchStatus.EXCLUDE_POST_CRD) {
-      return `<p><span class="govuk-visually-hidden">${prisoner.displayName} - </span>Ineligible (past CRD)<br><a href="/help?section=restricted-patients-should-be-removed" class="govuk-link" data-qa="help-link" target="restricted_patients_help">View Help</a></p>`
+      return `<p><span class="govuk-visually-hidden">${displayName} - </span>Ineligible (past CRD)<br><a href="/help?section=restricted-patients-should-be-removed" class="govuk-link" data-qa="help-link" target="restricted_patients_help">View Help</a></p>`
     }
     if (prisoner.searchStatus === SearchStatus.EXCLUDE_POST_SED) {
-      return `<p><span class="govuk-visually-hidden">${prisoner.displayName} - </span>Ineligible (past SED)<br><a href="/help?section=restricted-patients-should-be-removed" class="govuk-link" data-qa="help-link" target="restricted_patients_help">View Help</a></p>`
+      return `<p><span class="govuk-visually-hidden">${displayName} - </span>Ineligible (past SED)<br><a href="/help?section=restricted-patients-should-be-removed" class="govuk-link" data-qa="help-link" target="restricted_patients_help">View Help</a></p>`
     }
     if (prisoner.searchStatus === SearchStatus.EXCLUDE_NOT_RELEASED_HOSPITAL) {
-      return `<p><span class="govuk-visually-hidden">${prisoner.displayName} - </span>Ineligible (not released to hospital)<br><a href="/help?section=not-released-to-hospital" class="govuk-link" data-qa="help-link" target="restricted_patients_help">View Help</a></p>`
+      return `<p><span class="govuk-visually-hidden">${displayName} - </span>Ineligible (not released to hospital)<br><a href="/help?section=not-released-to-hospital" class="govuk-link" data-qa="help-link" target="restricted_patients_help">View Help</a></p>`
     }
     return ''
   }
