@@ -36,3 +36,7 @@ export const possessive = (string: string): string => {
 
 export const hasAnyRole = (requiredRoles: string[] | null, userRoles: string[]): boolean =>
   !requiredRoles || (!!userRoles && requiredRoles.some(role => userRoles.includes(role)))
+
+const htmlEscapes: Record<string, string> = { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }
+
+export const escapeHtml = (value?: string | null): string => (value ?? '').replace(/[&<>"']/g, c => htmlEscapes[c]!)
