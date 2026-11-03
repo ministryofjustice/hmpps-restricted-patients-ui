@@ -1,3 +1,4 @@
+import type { AuditService } from '@ministryofjustice/hmpps-audit-client'
 import express, { Router } from 'express'
 
 import RemoveRestrictedPatientConfirmationRoutes from './removeRestrictedPatientConfirmation'
@@ -11,10 +12,12 @@ import PrisonerSearchService from '../../services/prisonerSearchService'
 import authorisationMiddleware from '../../middleware/authorisationMiddleware'
 
 export default function removePatientRoutes({
+  auditService,
   removeRestrictedPatientService,
   restrictedPatientSearchService,
   prisonerSearchService,
 }: {
+  auditService: AuditService
   removeRestrictedPatientService: RemoveRestrictedPatientService
   restrictedPatientSearchService: RestrictedPatientSearchService
   prisonerSearchService: PrisonerSearchService
@@ -22,9 +25,9 @@ export default function removePatientRoutes({
   const router = express.Router({ mergeParams: true })
   router.use(authorisationMiddleware(true, ['REMOVE_RESTRICTED_PATIENT']))
 
-  const confirmation = new RemoveRestrictedPatientConfirmationRoutes(removeRestrictedPatientService)
+  const confirmation = new RemoveRestrictedPatientConfirmationRoutes(removeRestrictedPatientService, auditService)
   const search = new RestrictedPatientSearchRoutes()
-  const select = new RestrictedPatientSelectRoutes(restrictedPatientSearchService)
+  const select = new RestrictedPatientSelectRoutes(restrictedPatientSearchService, auditService)
   const completed = new RemoveRestrictedPatientCompletedRoutes(prisonerSearchService)
 
   router.get('/search-for-patient', search.view)

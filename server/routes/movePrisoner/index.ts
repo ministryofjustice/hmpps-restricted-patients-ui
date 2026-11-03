@@ -1,3 +1,4 @@
+import type { AuditService } from '@ministryofjustice/hmpps-audit-client'
 import express, { Router } from 'express'
 
 import HospitalSelectRoutes from './hospitalSelect'
@@ -11,10 +12,12 @@ import PrisonerSelectRoutes from './prisonerSelect'
 import authorisationMiddleware from '../../middleware/authorisationMiddleware'
 
 export default function movePrisonerRoutes({
+  auditService,
   movePrisonerService,
   prisonerSearchService,
   agencySearchService,
 }: {
+  auditService: AuditService
   movePrisonerService: MovePrisonerService
   prisonerSearchService: PrisonerSearchService
   agencySearchService: AgencySearchService
@@ -23,12 +26,13 @@ export default function movePrisonerRoutes({
   router.use(authorisationMiddleware(true, ['TRANSFER_RESTRICTED_PATIENT']))
 
   const prisonerSearch = new PrisonerSearchRoutes()
-  const prisonerSelect = new PrisonerSelectRoutes(prisonerSearchService)
+  const prisonerSelect = new PrisonerSelectRoutes(prisonerSearchService, auditService)
   const movePrisoner = new HospitalSelectRoutes(agencySearchService, prisonerSearchService)
   const movePrisonerConfirmation = new MovePrisonerConfirmationRoutes(
     movePrisonerService,
     prisonerSearchService,
     agencySearchService,
+    auditService,
   )
   const movePrisonerCompleted = new MovePrisonerCompletedRoutes(prisonerSearchService, agencySearchService)
 

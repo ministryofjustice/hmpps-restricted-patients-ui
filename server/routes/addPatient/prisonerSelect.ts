@@ -1,4 +1,6 @@
+import type { AuditService } from '@ministryofjustice/hmpps-audit-client'
 import { Request, Response } from 'express'
+import auditAction from '../../utils/auditAction'
 import { FormError } from '../../@types/template'
 import PrisonerSearchService, { PrisonerSearchSummary } from '../../services/prisonerSearchService'
 import validateForm from '../searchPrisoners/prisonerSearchValidation'
@@ -10,7 +12,10 @@ type PageData = {
   searchResults?: PrisonerSearchSummary[]
 }
 export default class PrisonerSelectRoutes {
-  constructor(private readonly prisonerSearchService: PrisonerSearchService) {}
+  constructor(
+    private readonly prisonerSearchService: PrisonerSearchService,
+    private readonly auditService: AuditService,
+  ) {}
 
   private searchFilter = new RestrictedPatientSearchFilter()
 
@@ -30,6 +35,13 @@ export default class PrisonerSelectRoutes {
     if (!searchTerm) return res.redirect('/add-restricted-patient/search-for-prisoner')
 
     const searchResults = await this.prisonerSearchService.search({ searchTerm, prisonIds: ['OUT'] }, user)
+
+    auditAction(this.auditService, req, res, {
+      what: 'SEARCH_PRISONER',
+      subjectType: 'SEARCH_TERM',
+      subjectId: searchTerm,
+      details: { journey: 'ADD_RESTRICTED_PATIENT' },
+    })
 
     const missingPatients = searchResults
       .map(prisoner => {

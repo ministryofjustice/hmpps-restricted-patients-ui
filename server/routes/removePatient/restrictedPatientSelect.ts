@@ -1,4 +1,6 @@
+import type { AuditService } from '@ministryofjustice/hmpps-audit-client'
 import { Request, Response } from 'express'
+import auditAction from '../../utils/auditAction'
 import RestrictedPatientSearchService, {
   RestrictedPatientSearchSummary,
 } from '../../services/restrictedPatientSearchService'
@@ -12,7 +14,10 @@ type PageData = {
 }
 
 export default class RestrictedPatientSelectRoutes {
-  constructor(private readonly restrictedPatientSearchService: RestrictedPatientSearchService) {}
+  constructor(
+    private readonly restrictedPatientSearchService: RestrictedPatientSearchService,
+    private readonly auditService: AuditService,
+  ) {}
 
   private renderView = async (_req: Request, res: Response, pageData: PageData): Promise<void> => {
     const { error, searchResults, searchTerm } = pageData
@@ -32,6 +37,13 @@ export default class RestrictedPatientSelectRoutes {
     if (!searchTerm) return res.redirect('/remove-from-restricted-patients/search-for-patient')
 
     const searchResults = await this.restrictedPatientSearchService.search({ searchTerm }, user)
+
+    auditAction(this.auditService, req, res, {
+      what: 'SEARCH_RESTRICTED_PATIENT',
+      subjectType: 'SEARCH_TERM',
+      subjectId: searchTerm,
+      details: { journey: 'REMOVE_RESTRICTED_PATIENT' },
+    })
 
     return this.renderView(req, res, { searchResults, searchTerm })
   }

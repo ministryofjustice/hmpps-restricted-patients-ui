@@ -19,16 +19,18 @@ export default function routes({
   userService,
   agencySearchService,
   migratePrisonerService,
+  auditService,
 }: Services): Router {
   const router = Router()
   router.use(
     '/move-to-hospital',
-    movePrisonerRoutes({ movePrisonerService, prisonerSearchService, agencySearchService }),
+    movePrisonerRoutes({ auditService, movePrisonerService, prisonerSearchService, agencySearchService }),
   )
-  router.use('/view-restricted-patients', viewPatientsRoutes({ restrictedPatientSearchService }))
+  router.use('/view-restricted-patients', viewPatientsRoutes({ auditService, restrictedPatientSearchService }))
   router.use(
     '/remove-from-restricted-patients',
     removePatientRoutes({
+      auditService,
       removeRestrictedPatientService,
       restrictedPatientSearchService,
       prisonerSearchService,
@@ -36,11 +38,12 @@ export default function routes({
   )
   router.use(
     '/add-restricted-patient',
-    addPrisonerRoutes({ agencySearchService, prisonerSearchService, migratePrisonerService }),
+    addPrisonerRoutes({ auditService, agencySearchService, prisonerSearchService, migratePrisonerService }),
   )
   router.use(
     '/change-supporting-prison',
     changeSupportingPrisonRoutes({
+      auditService,
       agencySearchService,
       restrictedPatientSearchService,
       prisonerSearchService,
