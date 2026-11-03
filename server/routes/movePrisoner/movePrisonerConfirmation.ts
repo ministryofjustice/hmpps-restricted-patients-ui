@@ -1,4 +1,6 @@
+import type { AuditService } from '@ministryofjustice/hmpps-audit-client'
 import { Request, Response } from 'express'
+import auditAction from '../../utils/auditAction'
 import MovePrisonerService from '../../services/movePrisonerService'
 import PrisonerSearchService from '../../services/prisonerSearchService'
 import AgencySearchService from '../../services/agencySearchService'
@@ -8,6 +10,7 @@ export default class MovePrisonerConfirmationRoutes {
     private readonly movePrisonerService: MovePrisonerService,
     private readonly prisonerSearchService: PrisonerSearchService,
     private readonly agencySearchService: AgencySearchService,
+    private readonly auditService: AuditService,
   ) {}
 
   private renderView = async (req: Request, res: Response): Promise<void> => {
@@ -39,6 +42,12 @@ export default class MovePrisonerConfirmationRoutes {
 
     try {
       await this.movePrisonerService.dischargePatientToHospital(prisonerNumber, currentAgencyId, hospitalId, user)
+      auditAction(this.auditService, req, res, {
+        what: 'CREATE_RESTRICTED_PATIENT',
+        subjectType: 'PRISONER_ID',
+        subjectId: prisonerNumber,
+        details: { journey: 'MOVE_TO_HOSPITAL', fromPrisonId: currentAgencyId, hospitalId },
+      })
 
       return res.redirect(
         `/move-to-hospital/prisoner-moved-to-hospital?${new URLSearchParams({ prisonerNumber, hospitalId })}`,

@@ -1,4 +1,6 @@
+import type { AuditService } from '@ministryofjustice/hmpps-audit-client'
 import { Request, Response } from 'express'
+import auditAction from '../../utils/auditAction'
 import PrisonerSearchService, { PrisonerResultSummary } from '../../services/prisonerSearchService'
 import AgencySearchService from '../../services/agencySearchService'
 import MovePrisonerService from '../../services/movePrisonerService'
@@ -9,6 +11,7 @@ export default class ChangePrisonConfirmationRoutes {
     private readonly movePrisonerService: MovePrisonerService,
     private readonly prisonerSearchService: PrisonerSearchService,
     private readonly agencySearchService: AgencySearchService,
+    private readonly auditService: AuditService,
   ) {}
 
   private renderView = async (req: Request, res: Response): Promise<void> => {
@@ -36,6 +39,12 @@ export default class ChangePrisonConfirmationRoutes {
 
     try {
       await this.movePrisonerService.changeSupportingPrison(prisonerNumber, prisonId, user)
+      auditAction(this.auditService, req, res, {
+        what: 'EDIT_SUPPORTING_PRISON',
+        subjectType: 'PRISONER_ID',
+        subjectId: prisonerNumber,
+        details: { journey: 'CHANGE_SUPPORTING_PRISON', supportingPrisonId: prisonId },
+      })
 
       return res.redirect(
         `/change-supporting-prison/prisoner-changed?${new URLSearchParams({ prisonerNumber, prisonId })}`,

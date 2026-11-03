@@ -1,3 +1,4 @@
+import type { AuditService } from '@ministryofjustice/hmpps-audit-client'
 import express, { Router } from 'express'
 
 import PrisonerSearchService from '../../services/prisonerSearchService'
@@ -12,11 +13,13 @@ import RestrictedPatientSearchService from '../../services/restrictedPatientSear
 import RestrictedPatientSelectRoutes from './patientSelect'
 
 export default function changeSupportingPrisonRoutes({
+  auditService,
   agencySearchService,
   restrictedPatientSearchService,
   movePrisonerService,
   prisonerSearchService,
 }: {
+  auditService: AuditService
   agencySearchService: AgencySearchService
   restrictedPatientSearchService: RestrictedPatientSearchService
   movePrisonerService: MovePrisonerService
@@ -26,13 +29,14 @@ export default function changeSupportingPrisonRoutes({
   router.use(authorisationMiddleware(true, ['RESTRICTED_PATIENT_MIGRATION']))
 
   const patientSearch = new RestrictedPatientSearchRoutes()
-  const patientSelect = new RestrictedPatientSelectRoutes(restrictedPatientSearchService)
+  const patientSelect = new RestrictedPatientSelectRoutes(restrictedPatientSearchService, auditService)
   const prisonSelect = new PrisonSelectRoutes(agencySearchService, restrictedPatientSearchService)
   const changePrisonCompleted = new ChangePrisonCompletedRoutes(prisonerSearchService, agencySearchService)
   const changePrisonConfirmation = new ChangePrisonConfirmationRoutes(
     movePrisonerService,
     prisonerSearchService,
     agencySearchService,
+    auditService,
   )
 
   router.get('/search-for-patient', patientSearch.view)

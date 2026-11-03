@@ -23,6 +23,8 @@ export const user: PrisonUser = {
   userRoles: [],
 }
 
+const noAuditing = { logAuditEvent: () => Promise.resolve() } as unknown as Services['auditService']
+
 export const flashProvider = jest.fn()
 jest.mock('jwt-decode', () => ({ jwtDecode: jest.fn() }))
 export const mockJwtDecode = JwtDecode.jwtDecode as jest.Mock
@@ -67,7 +69,8 @@ function appSetup(
   }
   app.use(express.json())
   app.use(express.urlencoded({ extended: true }))
-  app.use(routes(services))
+  // route tests that are not about auditing do not supply an audit service, so searches and changes audit to a stub
+  app.use(routes({ ...services, auditService: services.auditService ?? noAuditing }))
   app.use((_req, _res, next) => next(new NotFound()))
   app.use(errorHandler(production))
 
